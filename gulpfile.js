@@ -3,13 +3,11 @@
 var gulp = require('gulp'),
     eslint = require('gulp-eslint'),
     uglify = require('gulp-uglify'),
-    uglifycss = require('gulp-uglifycss'),
     rename = require('gulp-rename'),
-    sass = require('gulp-sass'),
     size = require('gulp-size');
 
-var source = 'src/better-trello.js';
-var dist = 'dist/better-trello.user.js';
+var source = 'nano-feed.js';
+var dest = 'nano-feed.min.js';
 
 gulp.task('lint', function () {
   return gulp.src(source)
@@ -23,21 +21,9 @@ gulp.task('lint', function () {
     }));
 });
 
-gulp.task('sass', function () {
-  return gulp.src('./src/*.sass')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(rename({ suffix: '.min' }))
-    .pipe(uglifycss())
-    .pipe(size())
-    .pipe(gulp.dest('./src/'));
-});
-gulp.task('sass:watch', function(){
-  gulp.watch('./src/*.sass', ['sass']);
-});
-
 gulp.task('default', ['lint'], function () {
   return gulp.src(source)
-    .pipe(rename(dist))
+    .pipe(rename(dest))
     .pipe(uglify({ preserveComments: 'all' }))
     .pipe(size())
     .pipe(gulp.dest('./'));

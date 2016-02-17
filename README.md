@@ -3,31 +3,41 @@ Tiny feed parser built in JavaScript.
 
 No dependencies.
 
-Simply call:
+Asynchronous feed call.
 
+Multiple function calls.
+
+**Examples:**
+
+    // minimal
     NanoFeed(url, function(items) {
         console.log(items);
-    })
+    });
 
-
-    NanoFeed(url, {qty: 10}, function(items){
+    // with options
+    NanoFeed(url, {date: true, qty: 15}, function(items){
         items.forEach(function(x){
-            document.getElementById('feed').apped
+            document.getElementById('feed').innerHTML += '<li>' + items.title + '</li>';
         });
-    })
+    });
+
+    // Successive calls
+    NanoFeed
+        (socialFeedUrl, addSocialFeedItems)
+        (weatherFeedUrl, addWeatherFeedItems);
 
 
-##Documentation
+###Documentation
 
-    NanoFeed(url, {
-        title: true,
-        link: true,
-        date: false,
-        description: false,
+    NanoFeed(feed_url, <optional> {
+        title: true
+        link: true
+        date: false
+        description: false
         qty: 5
     }, success_callback);
 
 Feed field `title` is the default if all fields are set to `false`.
 
-##Authoring
+###Authoring
 - Andre Figueiredo <andretf@gmail.com>

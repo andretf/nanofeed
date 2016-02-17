@@ -21,7 +21,7 @@ var NanoFeed = (NanoFeed || function(url, options, callback) {
     ' LIMIT ' + options.qty
   };
 
-  url = '//query.yahooapis.com/v1/public/yql?q=' + decodeURIComponent(config.query) + '&format=json&callback=';
+  url = '//query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(config.query) + '&format=json&callback=';
 
   getJSON(url, function (json) {
     if (json && json.query) {

@@ -1,4 +1,4 @@
-var NanoFeed = function(url, options, callback) {
+var NanoFeed = (NanoFeed || function(url, options, callback) {
   'use strict';
 
   if (typeof options === 'function') {
@@ -21,7 +21,7 @@ var NanoFeed = function(url, options, callback) {
     ' LIMIT ' + options.qty
   };
 
-  var url = '//query.yahooapis.com/v1/public/yql?q=' + decodeURIComponent(config.query) + '&format=json&callback=';
+  url = '//query.yahooapis.com/v1/public/yql?q=' + decodeURIComponent(config.query) + '&format=json&callback=';
 
   getJSON(url, function (json) {
     if (json && json.query) {
@@ -75,4 +75,5 @@ var NanoFeed = function(url, options, callback) {
     request.send();
   }
 
-};
+  return NanoFeed;
+});

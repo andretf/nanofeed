@@ -24,18 +24,19 @@ var NanoFeed = function(url, options, callback) {
   var url = '//query.yahooapis.com/v1/public/yql?q=' + decodeURIComponent(config.query) + '&format=json&callback=';
 
   getJSON(url, function (json) {
-    var data = [];
+    if (json && json.query) {
+      var data = [];
 
-    if (json.query && json.query.results && json.query.results.item) {
-      if (!json.query.results.item.length) {
-        data.push(json.query.results.item);
+      if (json.query.results && json.query.results.item) {
+        var result = json.query.results.item;
+
+        if (result) {
+          data = result.length ? result : [result];
+        }
       }
-      else {
-        data = json.query.results.item;
-      }
+
+      return callback(data);
     }
-
-    return callback(data);
   });
 
   function extend(a, b) {

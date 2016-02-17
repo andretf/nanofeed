@@ -59,6 +59,10 @@ var NanoFeed = function(url, options, callback) {
   }
 
   function getJSON(url, callback) {
+    function onerror(){
+     throw 'An error occurred while trying to retrieve the feed.';
+    }
+
     var request = new XMLHttpRequest();
     request.open('GET', url, true);
 
@@ -69,19 +73,17 @@ var NanoFeed = function(url, options, callback) {
           data = JSON.parse(request.responseText);
         }
         catch (ex) {
-          throw('Retrieved feed has content in a invalid format. Expected JSON content.');
+          onerror();
         }
 
         callback(data);
       }
       else {
-        throw('An error occurred while trying to retrieve the feed.');
+        onerror()
       }
     };
 
-    request.onerror = function () {
-      throw('An error occurred while trying to retrieve the feed.');
-    };
+    request.onerror = onerror;
 
     request.send();
   }

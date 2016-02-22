@@ -1,11 +1,10 @@
 # nano-feed
 Tiny feed parser built in JavaScript.
 
-No dependencies.
-
-Asynchronous feed call.
-
-Multiple function calls.
+No dependencies.<br>
+Asynchronous requests.<br>
+Multiple feeds sources.<br>
+Multiple indenpendent successive calls.
 
 **Examples:**
 
@@ -17,14 +16,17 @@ Multiple function calls.
     // with options
     NanoFeed(url, {date: true, qty: 15}, function(items){
         items.forEach(function(x){
-            document.getElementById('feed').innerHTML += '<li>' + items.title + '</li>';
+            var newItemHtml = '<li>' + items.title + ' - ' + item.date + '</li>';
+            document.getElementById('feed').innerHTML += newItemHtml;
         });
     });
 
+    // Multiple feed sources
+    NanoFeed([socialFeedUrl, newsFeedUrl], addFeedItems)
+
     // Successive calls
-    NanoFeed
-        (socialFeedUrl, addSocialFeedItems)
-        (weatherFeedUrl, addWeatherFeedItems);
+    NanoFeed([socialFeedUrl, newsFeedUrl], addFeedItems)
+            (weatherFeedUrl, addWeatherFeedItems);
 
 
 ###Documentation
@@ -37,7 +39,9 @@ Multiple function calls.
         qty: 5
     }, success_callback);
 
-Feed field `title` is the default if all fields are set to `false`.
+\* Feed field `title` is the default if all fields are set to `false`.<br>
+\* Results are always ordered by most recent publish date.<br>
+\* IE10+ support
 
 ###Authoring
 - Andre Figueiredo <andretf@gmail.com>

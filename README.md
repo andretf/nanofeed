@@ -4,7 +4,7 @@ Tiny feed parser built in JavaScript.
 No dependencies.<br>
 Asynchronous requests.<br>
 Multiple feeds sources.<br>
-Multiple indenpendent successive calls.
+Multiple independent successive calls.
 
 **Examples:**
 

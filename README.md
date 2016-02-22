@@ -32,10 +32,10 @@ Multiple indenpendent successive calls.
 ###Documentation
 
     NanoFeed(feed_url, <optional> {
-        title: true
-        link: true
-        date: false
-        description: false
+        title: true,
+        link: true,
+        date: false,
+        description: false,
         qty: 5
     }, success_callback);
 

@@ -7,7 +7,7 @@
     "url": "https://github.com/andretf/nano-feed.git"
   },
   "author": "Andre Figueiredo <andretf@gmail.com>",
-  "main": "nano-feed.min.js",
+  "main": "nano-feed.js",
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.9.1",

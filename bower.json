@@ -1,0 +1,26 @@
+{
+  "name": "nano-feed",
+  "description": "Tiny feed parser built in JavaScript",
+  "main": "nano-feed.js",
+  "authors": [
+    "Andre Figueiredo <andretf@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "feed",
+    "parser",
+    "javascript",
+    "vanilla",
+    "tiny",
+    "fast"
+  ],
+  "homepage": "https://github.com/andretf/nano-feed",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

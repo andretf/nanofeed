@@ -38,6 +38,9 @@ Multiple indenpendent successive calls.
         description: false,
         qty: 5
     }, success_callback);
+    
+    function success_callback(itemsArray){
+    }
 
 \* Feed field `title` is the default if all fields are set to `false`.<br>
 \* Results are always ordered by most recent publish date.<br>

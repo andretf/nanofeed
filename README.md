@@ -1,4 +1,8 @@
 # nano-feed
+
+[![GitHub version](https://badge.fury.io/gh/andretf%2Fnano-feed.svg)](https://badge.fury.io/gh/andretf%2Fnano-feed)
+[![Code Climate](https://codeclimate.com/github/andretf/nano-feed/badges/gpa.svg)](https://codeclimate.com/github/andretf/nano-feed)
+
 Tiny feed parser built in JavaScript.
 
 No dependencies.<br>

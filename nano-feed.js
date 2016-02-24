@@ -9,8 +9,7 @@ var NanoFeed = (NanoFeed || function(urls, options, callback) {
   if (typeof urls === 'string') {
     urls = [urls];
   }
-
-  if (!urls || !urls.join || !urls.length) {
+  else if (!Array.isArray(urls) || !urls.length) {
     return NanoFeed;
   }
 
@@ -22,49 +21,50 @@ var NanoFeed = (NanoFeed || function(urls, options, callback) {
     qty: 5
   }, options);
 
+  // Optimized cross-product make simple array of results in 'query.results.results.item'
+  // All tables Env allows select from 'query.multi'
   var config = {
-    getQuery: function () {
-      var feedQuery = 'SELECT title,link,pubDate,description FROM rss WHERE url=\'{FeedURL}\';';
-      var resultQuery = '' +
-        'SELECT ' + getQueryColumns(options) + ' ' +
-        'FROM yql.query.multi ' +
-        'WHERE queries="{FeedURLS}"' +
-        '|UNIQUE("item.title","item.link")' +
-        '|SORT(field="item.pubDate",descending="true")' +
-        '|TRUNCATE(' + options.qty + ')';
-
-      return resultQuery.replace('{FeedURLS}',
-        urls.reduce(function (acc, item) {
-          return acc + feedQuery.replace('{FeedURL}', item);
-        }, '')
-      );
-    }
+    baseUrl: '//query.yahooapis.com/v1/public/yql?format=json&callback=&' +
+             'crossProduct=optimized&env=http://datatables.org/alltables.env',
+    template: 'SELECT {COLS} FROM query.multi WHERE queries=\'' +
+    'SELECT title,link,pubDate,description ' +
+    'FROM rss ' +
+    'WHERE url in ("{URLS}")' +
+    '|UNIQUE(field="title",hideRepeatCount="true")' +
+    '|UNIQUE(field="link",hideRepeatCount="true")' +
+    '|SORT(field="pubDate",descending="true")' +
+    '|TRUNCATE({QTY})\''
   };
 
-  var url = '//query.yahooapis.com/v1/public/yql?format=json&callback=&q=' + encodeURIComponent(config.getQuery());
+  var query = config.template
+    .replace('{COLS}', getQueryColumns(options))
+    .replace('{URLS}', urls.join('","'))
+    .replace('{QTY}', options.qty);
+
+  var url = config.baseUrl + '&q=' + encodeURIComponent(query);
 
   getJSON(url, function (json) {
-    if (json && json.query) {
-      var data = [];
+    if (json && json.query && json.query.count) {
+      try {
+        var result = json.query.results.results.item;
+        var data = result.length ? result : [result];
 
-      if (json.query.results && json.query.results.results) {
-        var result = json.query.results.results;
-
-        if (result) {
-          if (result.item) {
-            data = [result.item]
-          }
-          else if (result.length && result[0].item) {
-            data = result.map(function (element) {
-              return element.item;
-            });
-          }
+        if (options.date) {
+          data.forEach(function (item) {
+            item.pubDate = new Date(item.pubDate);
+          });
         }
-      }
 
-      return callback(data);
+        return callback(data);
+      }
+      catch (e) {
+      }
     }
   });
+
+  return NanoFeed;
+
+  //---- private ----------------------------------------------
 
   function extend(a, b) {
     for (var key in b) {
@@ -76,32 +76,22 @@ var NanoFeed = (NanoFeed || function(urls, options, callback) {
   }
 
   function getQueryColumns(options) {
-    var cols = [];
+    var cols = '';
 
-    if (options.title) cols.push('item.title');
-    if (options.link) cols.push('item.link');
-    if (options.date) cols.push('item.pubDate');
-    if (options.description) cols.push('item.description');
+    cols += options.title ? 'item.title,': '';
+    cols += options.link ? 'item.link,': '';
+    cols += options.date ? 'item.pubDate,': '';
+    cols += options.description ? 'item.description,': '';
 
-    return cols.join(',') || 'item.title';
+    return cols.slice(0, -1) || 'item.title';
   }
 
   function getJSON(url, callback) {
     var request = new XMLHttpRequest();
-    request.open('GET', url, true);
-
     request.onload = function () {
-      var data;
-      try {
-        data = JSON.parse(request.responseText);
-      }
-      catch (e) {
-      }
-      callback(data);
-    };
-
+      callback(JSON.parse(request.responseText));
+    }
+    request.open('GET', url, true);
     request.send();
   }
-
-  return NanoFeed;
 });

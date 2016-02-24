@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Nano-feed : Tiny feed parser built in JavaScript">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Nano-feed</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/andretf/nano-feed">View on GitHub</a>
+
+          <h1 id="project_title">Nano-feed</h1>
+          <h2 id="project_tagline">Tiny feed parser built in JavaScript</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/andretf/nano-feed/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/andretf/nano-feed/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="nano-feed" class="anchor" href="#nano-feed" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>nano-feed</h1>
+
+<p>Tiny feed parser built in JavaScript.</p>
+
+<p>No dependencies.<br>
+Asynchronous requests.<br>
+Multiple feeds sources.<br>
+Multiple independent successive calls.</p>
+
+<p><strong><a href="bower.io">bower</a></strong></p>
+
+<pre><code>bower install nano-feed
+</code></pre>
+
+<h3>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h3>
+
+<pre><code>// minimal
+NanoFeed(url, function(items) {
+    console.log(items);
+});
+
+// with options
+NanoFeed(url, {date: true, qty: 15}, function(items){
+    items.forEach(function(x){
+        var newItemHtml = '&lt;li&gt;' + items.title + ' - ' + item.date + '&lt;/li&gt;';
+        document.getElementById('feed').innerHTML += newItemHtml;
+    });
+});
+
+// Multiple feed sources
+NanoFeed([socialFeedUrl, newsFeedUrl], addFeedItems)
+
+// Successive calls
+NanoFeed([socialFeedUrl, newsFeedUrl], addFeedItems)
+        (weatherFeedUrl, addWeatherFeedItems);
+</code></pre>
+
+<h3>
+<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Documentation</h3>
+
+<pre><code>NanoFeed(feed_url, &lt;optional&gt; {
+    title: true,
+    link: true,
+    date: false,
+    description: false,
+    qty: 5
+}, success_callback);
+
+function success_callback(itemsArray){
+}
+</code></pre>
+
+<p>* Feed field <code>title</code> is the default if all fields are set to <code>false</code>.<br>
+* Results are always ordered by most recent publish date.<br>
+* IE10+ support</p>
+
+<h3>
+<a id="authoring" class="anchor" href="#authoring" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authoring</h3>
+
+<ul>
+<li>Andre Figueiredo <a href="mailto:andretf@gmail.com">andretf@gmail.com</a>
+</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Nano-feed maintained by <a href="https://github.com/andretf">andretf</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>

@@ -6,7 +6,11 @@ Asynchronous requests.<br>
 Multiple feeds sources.<br>
 Multiple independent successive calls.
 
-**Examples:**
+**[bower](bower.io)**
+
+    bower install nano-feed
+
+###Examples
 
     // minimal
     NanoFeed(url, function(items) {

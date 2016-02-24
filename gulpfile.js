@@ -24,7 +24,7 @@ gulp.task('lint', function () {
 gulp.task('default', ['lint'], function () {
   return gulp.src(source)
     .pipe(rename(dest))
-    .pipe(uglify({ preserveComments: 'all' }))
+    .pipe(uglify())
     .pipe(size())
     .pipe(gulp.dest('./'));
 });

@@ -12,7 +12,8 @@ var TestResponses = {
 };
 
 var urls = {
-  invalid: {}, valid: {},
+  invalid: {},
+  valid: {},
   init: function () {
     urls.invalid = {
       null: {value: null},

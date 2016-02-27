@@ -12,21 +12,21 @@ describe("Urls parameter", function () {
   });
 
   it("should fail for any except string or string-array", function () {
-      expect(urls.invalid.null.success).toBe(false);
-      expect(urls.invalid.undefined.success).toBe(false);
-      expect(urls.invalid.function.success).toBe(false);
-      expect(urls.invalid.object.success).toBe(false);
-      expect(urls.invalid.number.success).toBe(false);
-      expect(urls.invalid.regexp.success).toBe(false);
-      expect(urls.invalid.arrayEmpty.success).toBe(false);
-      // TODO: expect(urls.invalid.arrayNotString.success).toBe(false);
+    expect(urls.invalid.null.success).toBe(false);
+    expect(urls.invalid.undefined.success).toBe(false);
+    expect(urls.invalid.function.success).toBe(false);
+    expect(urls.invalid.object.success).toBe(false);
+    expect(urls.invalid.number.success).toBe(false);
+    expect(urls.invalid.regexp.success).toBe(false);
+    expect(urls.invalid.arrayEmpty.success).toBe(false);
+    // TODO: expect(urls.invalid.arrayNotString.success).toBe(false);
   });
 
   it("should proceed to retrieve feed if string or string-array", function () {
-      expect(urls.invalid.string.success).toBe(true);
-      expect(urls.invalid.stringArray.success).toBe(true);
-      expect(urls.valid.stringArray.success).toBe(true);
-      expect(urls.valid.string.success).toBe(true);
+    expect(urls.invalid.string.success).toBe(true);
+    expect(urls.invalid.stringArray.success).toBe(true);
+    expect(urls.valid.stringArray.success).toBe(true);
+    expect(urls.valid.string.success).toBe(true);
   });
 });
 
@@ -43,8 +43,8 @@ describe("Expected results", function () {
   beforeEach(function () {
     NanoFeed.call(getContextWithFakeResponse(TestResponses.withResults),
       urls.valid.string.value, options, function (result) {
-      data = result;
-    });
+        data = result;
+      });
   });
 
   describe("Count", function () {

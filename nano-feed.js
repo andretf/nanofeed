@@ -90,7 +90,7 @@ var NanoFeed = (NanoFeed || function(urls, options, callback) {
     var request = new XMLHttpRequest();
     request.onload = function () {
       callback(JSON.parse(request.responseText));
-    }
+    };
     request.open('GET', url, true);
     request.send();
   }

@@ -23,6 +23,8 @@ describe("Urls parameter", function () {
   });
 
   it("should proceed to retrieve feed if string or string-array", function () {
+      expect(urls.invalid.string.success).toBe(true);
+      expect(urls.invalid.stringArray.success).toBe(true);
       expect(urls.valid.stringArray.success).toBe(true);
       expect(urls.valid.string.success).toBe(true);
   });

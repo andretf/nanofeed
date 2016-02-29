@@ -113,7 +113,7 @@ describe("Successful result from call to Yahoo! API", function () {
     describe("When: valid JSON", function() {
       describe("should call callback function", function () {
         describe("when: data is valid (has property query.results.results) ", function () {
-          xit("When: there is no items, should pass empty array", function () {
+          it("When: there is no items, should pass empty array", function () {
             callWithResponse(TestResponse.noResult);
             expect(successCallback).toHaveBeenCalled();
             expect(successCallback.calls.mostRecent().args[0].length).toBe(0);

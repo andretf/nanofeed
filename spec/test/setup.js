@@ -7,7 +7,7 @@ var TestResponse = {
   rss: '<rss>',
   json: '{"just another":"json"}',
   errorJson: '{"query":{"error":""}}',
-  noResult: '{"query":{"count":0,"created":"2016-02-26T17:32:13Z","lang":"en-US","results":null}}',
+  noResult: JSON.stringify({"query":{"count":0,"created":"2016-02-26T17:32:13Z","lang":"en-US","results":null}}),
   withResults: {
     oneResult: JSON.stringify({"query":{"count":1,"results":{"results":{"item":[{"title":"Ex-Michigan Lawmakers Face Felony Charges Over Affair - ABC News","link":"http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNELvlYHIrmFSJVrIk…om/Politics/wireStory/lawmakers-forced-office-affair-face-charges-37226059"}]}}}}),
     fields: {

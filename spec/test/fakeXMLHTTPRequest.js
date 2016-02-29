@@ -24,8 +24,8 @@ fakeXMLHTTPRequest.responseText = '';
 fakeXMLHTTPRequest.status = 200;
 
 fakeXMLHTTPRequest.reset = function(){
-  fakeXMLHTTPRequest.responseText = '';
-  fakeXMLHTTPRequest.status = 200;
+  this.responseText = '';
+  this.status = 200;
   return this;
 };
 

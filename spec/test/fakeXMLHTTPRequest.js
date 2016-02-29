@@ -1,6 +1,7 @@
 
 function fakeXMLHTTPRequest() {
   this.responseText = fakeXMLHTTPRequest.responseText;
+  this.status = fakeXMLHTTPRequest.status;
   this.open = function () {
   };
   this.onload = function () {
@@ -21,6 +22,7 @@ function fakeXMLHTTPRequest() {
 
 fakeXMLHTTPRequest.responseText = '';
 fakeXMLHTTPRequest.status = 200;
+
 fakeXMLHTTPRequest.withResponse = function(text){
   this.responseText = text;
   return this;

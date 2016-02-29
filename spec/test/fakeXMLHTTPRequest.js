@@ -23,6 +23,12 @@ function fakeXMLHTTPRequest() {
 fakeXMLHTTPRequest.responseText = '';
 fakeXMLHTTPRequest.status = 200;
 
+fakeXMLHTTPRequest.reset = function(){
+  fakeXMLHTTPRequest.responseText = '';
+  fakeXMLHTTPRequest.status = 200;
+  return this;
+};
+
 fakeXMLHTTPRequest.withResponse = function(text){
   this.responseText = text;
   return this;

@@ -67,3 +67,8 @@ function getContextWithFakeResponse(response) {
   thisArg.XMLHttpRequest = fakeXMLHTTPRequest.withResponse(response);
   return thisArg;
 }
+function getContextWithFakeRequest(fakeXMLHTTPRequest) {
+  var thisArg = window;
+  thisArg.XMLHttpRequest = fakeXMLHTTPRequest;
+  return thisArg;
+}

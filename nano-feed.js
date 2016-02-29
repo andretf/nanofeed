@@ -91,11 +91,13 @@ var NanoFeed = (NanoFeed || function(urls, options, callback) {
   function getJSON(url, callback) {
     var request = new XMLHttpRequest();
     request.onload = function () {
-      //try {
-        callback(JSON.parse(request.responseText));
-      //}
-      //catch (e){
-      //}
+      var data;
+      try {
+        data = JSON.parse(request.responseText);
+      }
+      catch (e){
+      }
+      callback(data);
     };
     request.open('GET', url, true);
     request.send();

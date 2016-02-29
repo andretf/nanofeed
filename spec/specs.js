@@ -139,10 +139,10 @@ describe("Successful result from call to Yahoo! API", function () {
       });
     });
 
-    xdescribe("when: invalid JSON", function(){
+    describe("when: invalid JSON", function(){
       it("should not throw exceptions", function(){
-        expect(callWithResponse(TestResponse.empty)).toThrow();
-        expect(callWithResponse(TestResponse.html)).toThrow();
+        expect(callWithResponse(TestResponse.empty)).not.toThrow();
+        expect(callWithResponse(TestResponse.html)).not.toThrow();
         expect(callWithResponse(TestResponse.xml)).not.toThrow();
         expect(callWithResponse(TestResponse.rss)).not.toThrow();
         expect(callWithResponse(TestResponse.json)).not.toThrow();

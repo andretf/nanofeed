@@ -33,18 +33,18 @@ describe("Parameter", function () {
     });
 
     describe("When: data type is string or string-array ", function(){
-      var callFnNoResults = function (url) {
-        return callFn(urls, TestResponse.noResult);
-      };
+      function callFnNoResults (url) {
+        return callFn(url, TestResponse.noResult);
+      }
 
       it("should call callback function", function () {
-        //expect(callFnNoResults(urls.invalid.string).spy).toHaveBeenCalled();
-        //expect(callFnNoResults(urls.invalid.stringArray).spy).toHaveBeenCalled();
+        expect(callFnNoResults(urls.invalid.string).spy).toHaveBeenCalled();
+        expect(callFnNoResults(urls.invalid.stringArray).spy).toHaveBeenCalled();
         expect(callFn(urls.valid.string).spy).toHaveBeenCalled();
         expect(callFn(urls.valid.stringArray).spy).toHaveBeenCalled();
       });
 
-      xit("should return empty array for invalid feed urls", function () {
+      it("should return empty array for invalid feed urls", function () {
         expect(callFnNoResults(urls.invalid.string).callbackData.length).toBe(0);
         expect(callFnNoResults(urls.invalid.stringArray).callbackData.length).toBe(0);
       });

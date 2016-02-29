@@ -44,21 +44,23 @@ var NanoFeed = (NanoFeed || function(urls, options, callback) {
   var url = config.baseUrl + '&q=' + encodeURIComponent(query);
 
   getJSON(url, function (json) {
-    if (json && json.query && json.query.count) {
-      try {
-        var result = json.query.results.results.item;
-        var data = result.length ? result : [result];
+    if (json && json.query && json.query.count >= 0) {
+      var data = [];
+      if (json.query.count) {
+        try {
+          var result = json.query.results.results.item;
+          var data = result.length ? result : [result];
 
-        if (options.date) {
-          data.forEach(function (item) {
-            item.pubDate = new Date(item.pubDate);
-          });
+          if (options.date) {
+            data.forEach(function (item) {
+              item.pubDate = new Date(item.pubDate);
+            });
+          }
         }
-
-        return callback(data);
+        catch (e) {
+        }
       }
-      catch (e) {
-      }
+      return callback(data);
     }
   });
 
@@ -89,7 +91,11 @@ var NanoFeed = (NanoFeed || function(urls, options, callback) {
   function getJSON(url, callback) {
     var request = new XMLHttpRequest();
     request.onload = function () {
-      callback(JSON.parse(request.responseText));
+      //try {
+        callback(JSON.parse(request.responseText));
+      //}
+      //catch (e){
+      //}
     };
     request.open('GET', url, true);
     request.send();

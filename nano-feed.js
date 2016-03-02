@@ -49,7 +49,7 @@ var NanoFeed = (NanoFeed || function(urls, options, callback) {
       if (json.query.count) {
         try {
           var result = json.query.results.results.item;
-          var data = result.length ? result : [result];
+          data = result.length ? result : [result];
 
           if (options.date) {
             data.forEach(function (item) {

@@ -230,10 +230,10 @@ describe("Successful result from call to Yahoo! API", function () {
       it("should have 'link'", function () {
         expect(item.link).toBeDefined();
       });
-      it("should have 'pubDate'", function () {
+      it("should not have 'pubDate'", function () {
         expect(item.pubDate).toBeUndefined();
       });
-      it("should have 'description'", function () {
+      it("should not have 'description'", function () {
         expect(item.description).toBeUndefined();
       });
       it("should have 'title' as default, even when not required, when all fields are not required", function () {

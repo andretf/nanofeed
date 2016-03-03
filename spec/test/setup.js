@@ -21,51 +21,26 @@ var TestResponse = {
 };
 
 var urls = {
-  invalid: {},
-  valid: {},
-  init: function () {
-    urls.invalid = {
-      null: null,
-      undefined: undefined,
-      function: function () {},
-      object: {},
-      number: 0,
-      date: new Date(),
-      regexp: /./,
-      arrayEmpty: [],
-      arrayNotString: [{}],
-      stringArray: ['', 'anything'],
-      string: 'anything',
-      invalidJSON: 'news.google.com'
-    };
-    urls.valid = {
-      stringArray: [
-        'news.google.com/news?output=rss',
-        'news.google.com/news?hl=pt-BR&ned=pt-BR_br&output=rss'],
-      string: 'news.google.com/news?output=rss'
-    };
-    return this;
+  invalid: {
+    null: null,
+    undefined: undefined,
+    function: function () {
+    },
+    object: {},
+    number: 0,
+    date: new Date(),
+    regexp: /./,
+    arrayEmpty: [],
+    arrayNotString: [{}],
+    stringArray: ['', 'anything'],
+    string: 'anything',
+    invalidJSON: 'news.google.com'
   },
-  foreach: function(callback){
-    ['valid', 'invalid'].forEach(function (property) {
-      var urlsCategory = urls[property];
-      Object.keys(urlsCategory).forEach(function (key) {
-        callback(urlsCategory[key]);
-      });
-    });
-
-    return this;
+  valid: {
+    stringArray: [
+      'news.google.com/news?output=rss',
+      'news.google.com/news?hl=pt-BR&ned=pt-BR_br&output=rss'],
+    string: 'news.google.com/news?output=rss'
   }
 };
-urls.init();
 
-function getContextWithFakeResponse(response) {
-  var thisArg = window;
-  thisArg.XMLHttpRequest = fakeXMLHTTPRequest.withResponse(response);
-  return thisArg;
-}
-function getContextWithFakeRequest(fakeXMLHTTPRequest) {
-  var thisArg = window;
-  thisArg.XMLHttpRequest = fakeXMLHTTPRequest;
-  return thisArg;
-}

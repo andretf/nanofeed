@@ -69,7 +69,8 @@ describe("Successful result from call to Yahoo! API", function () {
   };
   function callWithResponse (testResponse){
     var request = fakeXMLHTTPRequest.withResponse(testResponse);
-    NanoFeed.call(getContextWithFakeRequest(request), urls.valid.string, successCallback);
+    var args = [urls.valid.string, options, successCallback];
+    NanoFeed.apply(getContextWithFakeRequest(request), args);
     return {
       spy: successCallback,
       callbackData: (successCallback.calls.mostRecent() || {args: []}).args[0]
@@ -161,7 +162,16 @@ describe("Successful result from call to Yahoo! API", function () {
   });
 
   describe("Data type of fields", function() {
-    var item = callWithResponse(TestResponse.withResults.fields.all).callbackData[0];
+    var item;
+    beforeEach(function(){
+      NanoFeed.call(getContextWithFakeResponse(TestResponse.withResults.fields.all),
+        urls.valid.string, options, successCallback);
+      expect(successCallback).toHaveBeenCalled();
+      item = getCallbackParam(successCallback).first();
+    });
+    afterEach(function(){
+      item = undefined;
+    });
 
     it("'title' should be in text format", function () {
       expect(item.title).toBeDefined();
@@ -171,7 +181,7 @@ describe("Successful result from call to Yahoo! API", function () {
       expect(item.link).toBeDefined();
       expect(item.link).toEqual(jasmine.any(String));
     });
-    xit("'pubDate' should be in date format", function () {
+    it("'pubDate' should be in date format", function () {
       expect(item.pubDate).toBeDefined();
       expect(item.pubDate).toEqual(jasmine.any(Date));
     });
@@ -183,61 +193,82 @@ describe("Successful result from call to Yahoo! API", function () {
 
   describe("Presence of field", function() {
     var item;
+
+    function getFirstNanoResult(response, options){
+      var args = [urls.valid.string, options, successCallback];
+      NanoFeed.apply(getContextWithFakeResponse(response), args);
+      expect(successCallback).toHaveBeenCalled();
+      return getCallbackParam(successCallback).first();
+    }
+
+    beforeEach(function(){
+      fakeXMLHTTPRequest.reset();
+    });
+
     describe("When required in options (field: true)", function() {
-      beforeEach(function(){
-        item = callWithResponse(TestResponse.withResults.fields.all).callbackData[0];
-      });
       it("should have 'title' when required", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.all,
+          { title: true });
         expect(item.title).toBeDefined();
       });
       it("should have 'link' when required", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.all,
+          { link: true });
         expect(item.link).toBeDefined();
       });
       it("should have 'pubDate' when required", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.all,
+          { pubDate: true });
         expect(item.pubDate).toBeDefined();
       });
       it("should have 'description' when required", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.all,
+          { description: true });
         expect(item.description).toBeDefined();
       });
     });
     describe("When not required in options (field: false)", function() {
-      beforeEach(function(){
-        item = callWithResponse(TestResponse.withResults.fields.none).callbackData[0];
-      });
-
       it("should not have 'title' when not required", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.none,
+          { title: false, link: true });
         expect(item.title).toBeUndefined();
       });
       it("should not have 'link' when not required", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.none,
+          { title: true, link: false });
         expect(item.link).toBeUndefined();
       });
       it("should not have 'pubDate' when not required", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.none,
+          { title: true, pubDate: false });
         expect(item.pubDate).toBeUndefined();
       });
       it("should not have 'description' when not required", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.none,
+          { title: true, description: false });
         expect(item.description).toBeUndefined();
       });
     });
-
     describe("Defaults", function() {
-      var item;
-      beforeEach(function(){
-        item = callWithResponse(TestResponse.withResults.fields.default).callbackData[0];
-      });
       it("should have 'title'", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.default, {});
         expect(item.title).toBeDefined();
       });
       it("should have 'link'", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.default, {});
         expect(item.link).toBeDefined();
       });
       it("should not have 'pubDate'", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.default, {});
         expect(item.pubDate).toBeUndefined();
       });
       it("should not have 'description'", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.default, {});
         expect(item.description).toBeUndefined();
       });
       it("should have 'title' as default, even when not required, when all fields are not required", function () {
-        item = callWithResponse(TestResponse.withResults.fields.onlyTitle).callbackData[0];
+        var options = {title: false, link: false, date: false, description: false};
+        item = getFirstNanoResult(TestResponse.withResults.fields.onlyTitle, options);
         expect(item.title).toBeDefined();
       });
     });

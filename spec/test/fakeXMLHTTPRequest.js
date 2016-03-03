@@ -36,8 +36,8 @@ fakeXMLHTTPRequest.withResponse = function(text){
 fakeXMLHTTPRequest.withError = function() {
   this.status = 0;
   return this;
-}
+};
 fakeXMLHTTPRequest.withStatus = function(status) {
   this.status = status;
   return this;
-}
+};

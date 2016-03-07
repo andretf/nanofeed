@@ -1,7 +1,12 @@
 language: node_js
 node_js:
   - node
+addons:
+  code_climate:
+    repo_token: ec015233afb3f510382c43ba9c3635bcc023abaad7ba9d9df3ef6d544fa1db70
 before_script:
   - npm install
-  - sleep 30
-script: gulp lint
+  - sleep 10
+after_script:
+  - codeclimate-test-reporter < karma/report/lcov.info
+script: npm test && gulp lint

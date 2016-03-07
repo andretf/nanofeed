@@ -11,7 +11,7 @@ var source = './nano-feed.js';
 var dest = './nano-feed.min.js';
 
 gulp.task('test', function () {
-  gulp.src('./spec/*.js')
+  return gulp.src('spec/*.js')
     .pipe(jasmine({
       integration: true,
       specHtml: './spec/specRunner.html'

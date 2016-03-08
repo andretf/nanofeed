@@ -6,6 +6,7 @@ module.exports = function(config) {
       './spec/*.js'
     ],
     frameworks: ['jasmine'],
+    singleRun: true,
     browsers: ['PhantomJS'],
     reporters: ['progress', 'coverage'],
     preprocessors: { './nano-feed.js': ['coverage'] },

@@ -1,9 +1,9 @@
-# nano-feed
+# nanofeed
 
-[![GitHub version](https://badge.fury.io/gh/andretf%2Fnano-feed.svg)](https://badge.fury.io/gh/andretf%2Fnano-feed)
-[![Code Climate](https://codeclimate.com/github/andretf/nano-feed/badges/gpa.svg)](https://codeclimate.com/github/andretf/nano-feed)
-[![Build Status](https://travis-ci.org/andretf/nano-feed.svg?branch=master)](https://travis-ci.org/andretf/nano-feed)
-[![Test Coverage](https://codeclimate.com/github/andretf/nano-feed/badges/coverage.svg)](https://codeclimate.com/github/andretf/nano-feed/coverage)
+[![GitHub version](https://badge.fury.io/gh/andretf%2Fnanofeed.svg)](https://badge.fury.io/gh/andretf%2Fnanofeed)
+[![Code Climate](https://codeclimate.com/github/andretf/nanofeed/badges/gpa.svg)](https://codeclimate.com/github/andretf/nanofeed)
+[![Build Status](https://travis-ci.org/andretf/nanofeed.svg?branch=master)](https://travis-ci.org/andretf/nanofeed)
+[![Test Coverage](https://codeclimate.com/github/andretf/nanofeed/badges/coverage.svg)](https://codeclimate.com/github/andretf/nanofeed/coverage)
 
 Tiny feed parser built in JavaScript.
 
@@ -14,7 +14,7 @@ Multiple independent successive calls.
 
 **[bower](bower.io)**
 
-    bower install nano-feed
+    bower install nanofeed
 
 ###Examples
 

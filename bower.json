@@ -1,7 +1,7 @@
 {
-  "name": "nano-feed",
+  "name": "nanofeed",
   "description": "Tiny feed parser built in JavaScript",
-  "main": "nano-feed.js",
+  "main": "nanofeed.js",
   "authors": [
     "Andre Figueiredo <andretf@gmail.com>"
   ],

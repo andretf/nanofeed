@@ -7,8 +7,8 @@ var gulp = require('gulp'),
     size = require('gulp-size'),
     jasmine = require('gulp-jasmine-phantom');
 
-var source = './nano-feed.js';
-var dest = './nano-feed.min.js';
+var source = './nanofeed.js';
+var dest = './nanofeed.min.js';
 
 gulp.task('test', function () {
   return gulp.src('spec/*.js')

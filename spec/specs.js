@@ -11,7 +11,7 @@ describe("Parameter", function () {
       callFn = function (url, testResponse) {
         var request = fakeXMLHTTPRequest.reset()
           .withResponse(testResponse || TestResponse.withResults.fields.default);
-        NanoFeed.call(getContextWithFakeRequest(request), url, successCallback);
+        nanofeed.fetch.call(getContextWithFakeRequest(request), url, successCallback);
         return {
           spy: successCallback,
           callbackData: (successCallback.calls.mostRecent() || {args: []}).args[0]
@@ -62,7 +62,7 @@ describe("Successful result from call to Yahoo! API", function () {
   var args;
 
   function getNanoResults(testResponse){
-    NanoFeed.apply(getContextWithFakeResponse(testResponse), args);
+    nanofeed.fetch.apply(getContextWithFakeResponse(testResponse), args);
     return getCallbackParam(successCallback);
   }
 
@@ -92,7 +92,7 @@ describe("Successful result from call to Yahoo! API", function () {
       describe("should call callback function", function () {
         describe("when: data is valid (has property query.results.results) ", function () {
           function callNano(testResponse){
-            NanoFeed.apply(getContextWithFakeResponse(testResponse), args);
+            nanofeed.fetch.apply(getContextWithFakeResponse(testResponse), args);
             expect(successCallback).toHaveBeenCalled();
           }
           it("When: there is no items, should pass empty array", function () {
@@ -112,7 +112,7 @@ describe("Successful result from call to Yahoo! API", function () {
 
       describe("should not call callback function", function () {
         it("when: data is invalid (syntax error in query sent to API)", function () {
-          NanoFeed.apply(getContextWithFakeResponse(TestResponse.errorJson), args);
+          nanofeed.fetch.apply(getContextWithFakeResponse(TestResponse.errorJson), args);
           expect(successCallback).not.toHaveBeenCalled();
         });
       });
@@ -121,7 +121,7 @@ describe("Successful result from call to Yahoo! API", function () {
     describe("when: invalid JSON", function(){
       it("should not throw exceptions", function(){
         function callNano(testResponse) {
-          return NanoFeed.apply(getContextWithFakeResponse(testResponse), args);
+          return nanofeed.fetch.bind(getContextWithFakeResponse(testResponse), args);
         }
         expect(callNano(TestResponse.empty)).not.toThrow();
         expect(callNano(TestResponse.html)).not.toThrow();
@@ -133,7 +133,7 @@ describe("Successful result from call to Yahoo! API", function () {
 
       it("should not call callback function", function(){
         function callNano(testResponse) {
-          NanoFeed.apply(getContextWithFakeResponse(testResponse), args);
+          nanofeed.fetch.apply(getContextWithFakeResponse(testResponse), args);
           return {successCallback: successCallback};
         }
         expect(callNano(TestResponse.empty).successCallback).not.toHaveBeenCalled();
@@ -155,7 +155,7 @@ describe("Successful result from call to Yahoo! API", function () {
       description: true
     };
     beforeEach(function(){
-      NanoFeed.call(getContextWithFakeResponse(TestResponse.withResults.fields.all),
+      nanofeed.fetch.call(getContextWithFakeResponse(TestResponse.withResults.fields.all),
         urls.valid.string, options, successCallback);
       expect(successCallback).toHaveBeenCalled();
       item = getCallbackParam(successCallback).first();
@@ -187,7 +187,7 @@ describe("Successful result from call to Yahoo! API", function () {
 
     function getFirstNanoResult(response, options){
       var args = [urls.valid.string, options, successCallback];
-      NanoFeed.apply(getContextWithFakeResponse(response), args);
+      nanofeed.fetch.apply(getContextWithFakeResponse(response), args);
       expect(successCallback).toHaveBeenCalled();
       return getCallbackParam(successCallback).first();
     }
@@ -274,7 +274,7 @@ describe("Unsuccessful call to Yahoo! API", function () {
     var fakeRequest = fakeXMLHTTPRequest.reset()
                       .withError()
                       .withResponse(urls.valid.string);
-    NanoFeed.call(getContextWithFakeRequest(fakeRequest), urls.valid.string, successCallback);
+    nanofeed.fetch.call(getContextWithFakeRequest(fakeRequest), urls.valid.string, successCallback);
   });
 
   it("should not throw exceptions", function(){

@@ -19,12 +19,12 @@ Multiple independent successive calls.
 ###Examples
 
     // minimal
-    NanoFeed(url, function(items) {
+    nanofeed.fetch(url, function(items) {
         console.log(items);
     });
 
     // with options
-    NanoFeed(url, {date: true, qty: 15}, function(items){
+    nanofeed.fetch(url, {date: true, qty: 15}, function(items){
         items.forEach(function(x){
             var newItemHtml = '<li>' + items.title + ' - ' + item.date + '</li>';
             document.getElementById('feed').innerHTML += newItemHtml;
@@ -32,16 +32,16 @@ Multiple independent successive calls.
     });
 
     // Multiple feed sources
-    NanoFeed([socialFeedUrl, newsFeedUrl], addFeedItems)
+    nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
 
     // Successive calls
-    NanoFeed([socialFeedUrl, newsFeedUrl], addFeedItems)
-            (weatherFeedUrl, addWeatherFeedItems);
+    nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
+            .fetch(weatherFeedUrl, addWeatherFeedItems);
 
 
 ###Documentation
 
-    NanoFeed(feed_url, <optional> {
+    nanofeed.fetch(feed_url, <optional> {
         title: true,
         link: true,
         date: false,

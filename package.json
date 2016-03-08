@@ -13,6 +13,7 @@
     "test": "./node_modules/karma/bin/karma start"
   },
   "devDependencies": {
+    "codeclimate-test-reporter": "^0.3.1",
     "gulp": "^3.9.1",
     "gulp-eslint": "^2.0.0",
     "gulp-jasmine-phantom": "^3.0.0",

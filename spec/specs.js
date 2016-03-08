@@ -83,7 +83,7 @@ describe("Successful result from call to Yahoo! API", function () {
       var data = getNanoResults(TestResponse.withResults.fields.default);
       expect(data).toBeDefined();
       expect(data.length).toBeDefined();
-      expect(data.length).not.toBeGreaterThan(options.qty+1);
+      expect(data.length).not.toBeGreaterThan(10);
     });
   });
 

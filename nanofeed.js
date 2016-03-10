@@ -41,16 +41,16 @@ var nanofeed = (function () {
 
   return {
     fetch: function (urls, options, callback) {
-      if (typeof options === 'function') {
-        callback = options;
-        options = {};
-      }
-
       if (typeof urls === 'string') {
         urls = [urls];
       }
       else if (!Array.isArray(urls) || !urls.length) {
         return this;
+      }
+
+      if (typeof options === 'function') {
+        callback = options;
+        options = {};
       }
 
       options = Object.assign({

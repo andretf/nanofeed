@@ -1,14 +1,15 @@
 'use strict';
 
 var nanofeed = (function () {
-
-  function extend(a, b) {
-    for (var key in b) {
-      if (b.hasOwnProperty(key)) {
-        a[key] = b[key];
+  if (typeof Object.assign !== 'function') {
+    Object.assign = function (a, b) {
+      for (var key in b) {
+        if (b.hasOwnProperty(key)) {
+          a[key] = b[key];
+        }
       }
-    }
-    return a;
+      return a;
+    };
   }
 
   // We don't want extra columns carrying unnecessary data through the network
@@ -52,7 +53,7 @@ var nanofeed = (function () {
         return this;
       }
 
-      options = extend({
+      options = Object.assign({
         title: true,
         link: true,
         date: false,

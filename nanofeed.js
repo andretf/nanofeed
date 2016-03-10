@@ -1,6 +1,6 @@
-'use strict';
-
 var nanofeed = (function () {
+  'use strict';
+
   if (typeof Object.assign !== 'function') {
     Object.assign = function (a, b) {
       for (var key in b) {

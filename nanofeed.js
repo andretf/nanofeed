@@ -52,14 +52,15 @@ var nanofeed = (function () {
         callback = options;
         options = {};
       }
-
-      options = Object.assign({
-        title: true,
-        link: true,
-        date: false,
-        description: false,
-        qty: 5
-      }, options);
+      else {
+        options = Object.assign({
+          title: true,
+          link: true,
+          date: false,
+          description: false,
+          qty: 5
+        }, options);
+      }
 
       // Optimized cross-product make simple array of results in 'query.results.results.item'
       // All tables Env allows select from 'query.multi'

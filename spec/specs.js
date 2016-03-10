@@ -1,11 +1,10 @@
 'use strict';
 
 describe("Parameter", function () {
+  var successCallback;
+  var callFn;
 
   describe("Urls", function () {
-    var successCallback;
-    var callFn;
-
     beforeEach(function(){
       successCallback = jasmine.createSpy('successCallback');
       callFn = function (url, testResponse) {
@@ -53,6 +52,37 @@ describe("Parameter", function () {
         expect(callFn(urls.valid.string).callbackData.length).toBe(2);
         expect(callFn(urls.valid.stringArray).callbackData.length).toBe(2);
       });
+    });
+  });
+
+  describe("(Given) Callback", function(){
+    beforeEach(function(){
+      successCallback = jasmine.createSpy('successCallback');
+      callFn = function (callback) {
+        var args = [urls.valid.string, callback];
+        var request = fakeXMLHTTPRequest.reset().withResponse(TestResponse.withResults.fields.default);
+        return nanofeed.fetch.apply(getContextWithFakeRequest(request), args);
+      }
+    });
+
+    it("(When) omitted (then) should throw exception", function(){
+      expect(callFn.bind(this)).toThrow();
+    });
+    it("(When) undefined (then) should throw exception", function(){
+      expect(callFn.bind(this, undefined)).toThrow();
+    });
+    it("(When) null (then) should throw exception", function(){
+      expect(callFn.bind(this, null)).toThrow();
+    });
+    it("(When) other than a function (then) should throw exception", function(){
+      expect(callFn.bind(this, 0)).toThrow();
+      expect(callFn.bind(this, new Date)).toThrow();
+      expect(callFn.bind(this, "")).toThrow();
+      expect(callFn.bind(this, {})).toThrow();
+    });
+
+    it("(When) function (then) should not throw exception", function(){
+      expect(callFn.bind(this, function(){})).not.toThrow();
     });
   });
 });

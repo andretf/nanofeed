@@ -1,14 +1,23 @@
 var nanofeed = (function () {
   'use strict';
 
-  if (typeof Object.assign !== 'function') {
-    Object.assign = function (a, b) {
-      for (var key in b) {
-        if (b.hasOwnProperty(key)) {
-          a[key] = b[key];
+  if (typeof Object.assign != 'function') {
+    Object.assign = function (target) {
+      if (target === undefined || target === null) {
+        throw new TypeError('Cannot convert undefined or null to object');
+      }
+      var output = Object(target);
+      for (var i = 1, len = arguments.length; i < len; i++) {
+        var source = arguments[i];
+        if (source !== undefined && source !== null) {
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              output[key] = source[key];
+            }
+          }
         }
       }
-      return a;
+      return output;
     };
   }
 
@@ -53,7 +62,7 @@ var nanofeed = (function () {
         options = {};
       }
       else {
-        options = Object.assign({
+        options = Object.assign({}, {
           title: true,
           link: true,
           date: false,

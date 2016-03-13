@@ -44,3 +44,4 @@ var urls = {
   }
 };
 
+mock();

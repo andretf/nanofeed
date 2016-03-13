@@ -29,15 +29,12 @@ fakeXMLHTTPRequest.reset = function(){
   return this;
 };
 
-fakeXMLHTTPRequest.withResponse = function(text){
+fakeXMLHTTPRequest.setResponse = function(text){
+  fakeXMLHTTPRequest.reset();
   this.responseText = text;
   return this;
 };
-fakeXMLHTTPRequest.withError = function() {
+fakeXMLHTTPRequest.setError = function() {
   this.status = 0;
-  return this;
-};
-fakeXMLHTTPRequest.withStatus = function(status) {
-  this.status = status;
   return this;
 };

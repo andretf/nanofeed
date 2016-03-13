@@ -1,26 +1,6 @@
 var nanofeed = (function () {
   'use strict';
 
-  if (typeof Object.assign != 'function') {
-    Object.assign = function (target) {
-      if (target === undefined || target === null) {
-        throw new TypeError('Cannot convert undefined or null to object');
-      }
-      var output = Object(target);
-      for (var i = 1, len = arguments.length; i < len; i++) {
-        var source = arguments[i];
-        if (source !== undefined && source !== null) {
-          for (var key in source) {
-            if (source.hasOwnProperty(key)) {
-              output[key] = source[key];
-            }
-          }
-        }
-      }
-      return output;
-    };
-  }
-
   // We don't want extra columns carrying unnecessary data through the network
   function getQueryColumns(fields) {
     var cols = '';
@@ -64,10 +44,10 @@ var nanofeed = (function () {
         options = {};
       }
 
-      options = Object.assign({}, {
-        fields: ['title', 'link'],
-        qty: 5
-      }, options);
+      if (!Array.isArray(options.fields)) {
+        options.fields = ['title', 'link'];
+      }
+      options.qty = isNaN(options.qty) ? 5 : parseInt(options.qty);
 
       // Optimized cross-product make simple array of results in 'query.results.results.item'
       // All tables Env allows select from 'query.multi'

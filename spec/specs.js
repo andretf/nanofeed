@@ -171,10 +171,7 @@ describe("Successful result from call to Yahoo! API", function () {
   describe("Data type of fields", function() {
     var item;
     var options = {
-      title: true,
-      link: true,
-      date: true,
-      description: true
+      fields: ['title', 'link', 'date', 'description']
     };
 
     function getNanoResults(testResponse){
@@ -254,22 +251,22 @@ describe("Successful result from call to Yahoo! API", function () {
     describe("When not required in options (field: false)", function() {
       it("should not have 'title' when not required", function () {
         item = getFirstNanoResult(TestResponse.withResults.fields.none,
-          { title: false, link: true });
+          { fields: ['link'] });
         expect(item.title).toBeUndefined();
       });
       it("should not have 'link' when not required", function () {
         item = getFirstNanoResult(TestResponse.withResults.fields.none,
-          { link: false, date: true });
+          { fields: ['date'] });
         expect(item.link).toBeUndefined();
       });
       it("should not have 'pubDate' when not required", function () {
         item = getFirstNanoResult(TestResponse.withResults.fields.none,
-          { date: false, description: true });
+          { fields:['description'] });
         expect(item.pubDate).toBeUndefined();
       });
       it("should not have 'description' when not required", function () {
         item = getFirstNanoResult(TestResponse.withResults.fields.none,
-          { description: false, title: true });
+          { fields: ['title'] });
         expect(item.description).toBeUndefined();
       });
     });
@@ -291,7 +288,7 @@ describe("Successful result from call to Yahoo! API", function () {
         expect(item.description).toBeUndefined();
       });
       it("should have 'title' as default, even when not required, when all fields are not required", function () {
-        var options = {title: false, link: false, date: false, description: false};
+        var options = { fields: [] };
         item = getFirstNanoResult(TestResponse.withResults.fields.onlyTitle, options);
         expect(item.title).toBeDefined();
       });

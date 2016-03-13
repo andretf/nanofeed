@@ -22,13 +22,15 @@ var nanofeed = (function () {
   }
 
   // We don't want extra columns carrying unnecessary data through the network
-  function getQueryColumns(options) {
+  function getQueryColumns(fields) {
     var cols = '';
 
-    cols += options.title ? 'item.title,' : '';
-    cols += options.link ? 'item.link,' : '';
-    cols += options.date ? 'item.pubDate,' : '';
-    cols += options.description ? 'item.description,' : '';
+    if (fields.indexOf) {
+      cols += fields.indexOf('title') > -1 ? 'item.title,' : '';
+      cols += fields.indexOf('link') > -1 ? 'item.link,' : '';
+      cols += fields.indexOf('date') > -1 ? 'item.pubDate,' : '';
+      cols += fields.indexOf('description') > -1 ? 'item.description,' : '';
+    }
 
     return cols.slice(0, -1) || 'item.title';
   }
@@ -61,15 +63,11 @@ var nanofeed = (function () {
         callback = options;
         options = {};
       }
-      else {
-        options = Object.assign({}, {
-          title: true,
-          link: true,
-          date: false,
-          description: false,
-          qty: 5
-        }, options);
-      }
+
+      options = Object.assign({}, {
+        fields: ['title', 'link'],
+        qty: 5
+      }, options);
 
       // Optimized cross-product make simple array of results in 'query.results.results.item'
       // All tables Env allows select from 'query.multi'
@@ -87,7 +85,7 @@ var nanofeed = (function () {
       };
 
       var query = config.template
-        .replace('{COLS}', getQueryColumns(options))
+        .replace('{COLS}', getQueryColumns(options.fields))
         .replace('{URLS}', urls.join('","'))
         .replace('{QTY}', options.qty);
 
@@ -101,7 +99,7 @@ var nanofeed = (function () {
               var result = json.query.results.results.item;
               data = result.length ? result : [result];
 
-              if (options.date) {
+              if (options.fields.indexOf('date') > -1) {
                 data.forEach(function (item) {
                   item.pubDate = new Date(item.pubDate);
                 });

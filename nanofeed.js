@@ -1,6 +1,11 @@
 var nanofeed = (function () {
   'use strict';
 
+  var defaultOptions = {
+    fields: ['title', 'link'],
+    qty: 5
+  };
+
   // We don't want extra columns carrying unnecessary data through the network
   function getQueryColumns(fields) {
     var cols = '';
@@ -12,7 +17,7 @@ var nanofeed = (function () {
       cols += fields.indexOf('description') > -1 ? 'item.description,' : '';
     }
 
-    return cols.slice(0, -1) || 'item.title';
+    return cols.slice(0, -1) || defaultOptions.fields;
   }
 
   function getJSON(url, callback) {
@@ -45,9 +50,9 @@ var nanofeed = (function () {
       }
 
       if (!Array.isArray(options.fields)) {
-        options.fields = ['title', 'link'];
+        options.fields = defaultOptions.fields;
       }
-      options.qty = isNaN(options.qty) ? 5 : parseInt(options.qty);
+      options.qty = isNaN(options.qty) ? defaultOptions.qty : parseInt(options.qty);
 
       // Optimized cross-product make simple array of results in 'query.results.results.item'
       // All tables Env allows select from 'query.multi'

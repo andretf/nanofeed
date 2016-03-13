@@ -12,13 +12,14 @@
   <script src="test/setup.js"></script>
   <script src="specs.js"></script>
   <script>
-    var options = {
+    var reporterOptions = {
       timer: new jasmine.Timer,
       showColors: true,
       print: function (msg) {
         console.log(msg);
-      }};
-    jasmine.getEnv().addReporter(new TerminalReporter(options));
+      }
+    };
+    jasmine.getEnv().addReporter(new TerminalReporter(reporterOptions));
   </script>
 </head>
 <body>

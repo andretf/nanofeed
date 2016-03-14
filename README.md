@@ -20,15 +20,15 @@ Multiple independent successive calls.
 
     // minimal
     nanofeed.fetch(url, function(items) {
-        console.log(items);
+      console.log(items);
     });
 
     // with options
     nanofeed.fetch(url, {fields: ['title','date'], qty: 15}, function(items){
-        items.forEach(function(x){
-            var newItemHtml = '<li>' + items.title + ' - ' + item.date + '</li>';
-            document.getElementById('feed').innerHTML += newItemHtml;
-        });
+      items.forEach(function(x){
+        var newItemHtml = '<li>' + items.title + ' - ' + item.date + '</li>';
+        document.getElementById('feed').innerHTML += newItemHtml;
+      });
     });
 
     // Multiple feed sources
@@ -65,7 +65,7 @@ quantity of feed entries to return<br>
 optional<br>
 `integer`<br>
 default: `5`<br>
-accepted values: `> 0` <sup>*maximum will be limited by feed source</sup>
+accepted values: `> 0`, maximum limited by feed source
 
 ####success_callback<br>
 callback function called on success<br>

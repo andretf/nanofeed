@@ -18,7 +18,7 @@ gulp.task('test', function () {
     }));
 });
 
-gulp.task('lint', ['test'], function () {
+gulp.task('lint', function () {
   return gulp.src(source)
     .pipe(eslint())
     .pipe(eslint.format())
@@ -30,7 +30,7 @@ gulp.task('lint', ['test'], function () {
     }));
 });
 
-gulp.task('default', ['lint'], function () {
+gulp.task('default', ['test', 'lint'], function () {
   return gulp.src(source)
     .pipe(rename(dest))
     .pipe(uglify())

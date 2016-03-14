@@ -1,1 +1,4 @@
 **/*{.,-}min.js
+*/**/*.js
+gulpfile.js
+karma.conf.js

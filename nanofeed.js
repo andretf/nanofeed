@@ -1,3 +1,4 @@
+/* exported nanofeed */
 var nanofeed = (function () {
   'use strict';
 
@@ -40,8 +41,9 @@ var nanofeed = (function () {
         data = JSON.parse(request.responseText);
       }
       catch (e) {
+        return;
       }
-      callback(data);
+      return callback(data);
     };
     request.open('GET', url, true);
     request.send();
@@ -100,6 +102,7 @@ var nanofeed = (function () {
               }
             }
             catch (e) {
+              // ignore error
             }
           }
           return callback(data);

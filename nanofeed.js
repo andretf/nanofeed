@@ -8,16 +8,28 @@ var nanofeed = (function () {
 
   // We don't want extra columns carrying unnecessary data through the network
   function getQueryColumns(fields) {
-    var cols = '';
+    if (Array.isArray(fields)) {
+      fields = fields.filter(function (field) {
+        return ['title', 'link', 'date', 'description'].indexOf(field) > -1;
+      });
 
-    if (fields.indexOf) {
-      cols += fields.indexOf('title') > -1 ? 'item.title,' : '';
-      cols += fields.indexOf('link') > -1 ? 'item.link,' : '';
-      cols += fields.indexOf('date') > -1 ? 'item.pubDate,' : '';
-      cols += fields.indexOf('description') > -1 ? 'item.description,' : '';
+      if (!fields.length) {
+        fields = defaultOptions.fields;
+      }
+    }
+    else {
+      fields = defaultOptions.fields;
     }
 
-    return cols.slice(0, -1) || defaultOptions.fields;
+    return fields
+      .map(function (field) {
+        if (field === 'date') {
+          return 'item.pubDate';
+        }
+
+        return 'item.' + field;
+      })
+      .join(',');
   }
 
   function getJSON(url, callback) {
@@ -46,12 +58,9 @@ var nanofeed = (function () {
 
       if (typeof options === 'function') {
         callback = options;
-        options = {};
+        options = defaultOptions;
       }
 
-      if (!Array.isArray(options.fields)) {
-        options.fields = defaultOptions.fields;
-      }
       options.qty = isNaN(options.qty) ? defaultOptions.qty : parseInt(options.qty);
 
       // Optimized cross-product make simple array of results in 'query.results.results.item'

@@ -16,7 +16,7 @@ Multiple independent successive calls.
 
     bower install nanofeed
 
-###Examples
+##Examples
 
     // minimal
     nanofeed.fetch(url, function(items) {
@@ -24,7 +24,7 @@ Multiple independent successive calls.
     });
 
     // with options
-    nanofeed.fetch(url, {date: true, qty: 15}, function(items){
+    nanofeed.fetch(url, {fields: ['title','date'], qty: 15}, function(items){
         items.forEach(function(x){
             var newItemHtml = '<li>' + items.title + ' - ' + item.date + '</li>';
             document.getElementById('feed').innerHTML += newItemHtml;
@@ -39,22 +39,42 @@ Multiple independent successive calls.
             .fetch(weatherFeedUrl, addWeatherFeedItems);
 
 
-###Documentation
+##Documentation
 
-    nanofeed.fetch(feed_url, <optional> {
-        title: true,
-        link: true,
-        date: false,
-        description: false,
-        qty: 5
-    }, success_callback);
-    
-    function success_callback(itemsArray){
-    }
+###`nanofeed.fetch(feed_url, [options], success_callback);`
 
-\* Feed field `title` is the default if all fields are set to `false`.<br>
+####feed_url<br>
+absolute URLs of RSS feeds<br>
+**required**<br>
+**`string`** | **`string array`**
+
+####options<br>
+options for querying feed<br>
+**optional**<br>
+**`object`**<br>
+
+- **fields**<br>
+fields to be returned from feed source(s)<br>
+optional<br>
+`string array`<br>
+default: `['title', 'link']`<br>
+accepted values: `title`, `link`, `date`, `description`
+
+- **qty**<br>
+quantity of feed entries to return<br>
+optional<br>
+`integer`<br>
+default: `5`<br>
+accepted values: `> 0` <sup>*maximum will be limited by feed source</sup>
+
+####success_callback<br>
+callback function called on success<br>
+**required**<br>
+**`function`**
+
+\* Field `title` is the the default when `options.fields` has no valid fields.<br>
 \* Results are always ordered by most recent publish date.<br>
 \* IE10+ support
 
-###Authoring
+##Authoring
 - Andre Figueiredo <andretf@gmail.com>

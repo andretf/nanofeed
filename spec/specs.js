@@ -54,6 +54,45 @@ describe("Parameter", function () {
     });
   });
 
+  describe("(Given) Options ", function() {
+    beforeEach(function () {
+      successCallback = jasmine.createSpy('successCallback');
+      fakeXMLHTTPRequest.setResponse(TestResponse.withResults.fields.default);
+      callFn = function (options) {
+        nanofeed.fetch(urls.valid.string, options, successCallback);
+        return getCallbackParam(successCallback).first();
+      }
+    });
+
+    describe("(When) ommited (Then), as default", function () {
+      var item;
+
+      beforeEach(function () {
+        successCallback = jasmine.createSpy('successCallback');
+        fakeXMLHTTPRequest.setResponse(TestResponse.withResults.fields.default);
+        nanofeed.fetch(urls.valid.string, successCallback);
+        expect(successCallback).toHaveBeenCalled();
+        item = getCallbackParam(successCallback).first();
+      });
+      afterEach(function () {
+        item = undefined;
+      });
+
+      it("should have 'title' field", function () {
+        expect(item.title).toBeDefined();
+      });
+      it("should have 'link' field", function () {
+        expect(item.link).toBeDefined();
+      });
+      it("should not have 'pubDate' field", function () {
+        expect(item.pubDate).toBeUndefined();
+      });
+      it("should not have 'description' field", function () {
+        expect(item.description).toBeUndefined();
+      });
+    });
+  });
+
   describe("(Given) Callback", function(){
     beforeEach(function(){
       successCallback = jasmine.createSpy('successCallback');
@@ -174,13 +213,6 @@ describe("Successful result from call to Yahoo! API", function () {
       fields: ['title', 'link', 'date', 'description']
     };
 
-    function getNanoResults(testResponse){
-      successCallback = jasmine.createSpy('successCallback');
-      fakeXMLHTTPRequest.setResponse(testResponse);
-      nanofeed.fetch(urls.valid.string, successCallback);
-      return getCallbackParam(successCallback);
-    }
-
     beforeEach(function(){
       successCallback = jasmine.createSpy('successCallback');
       fakeXMLHTTPRequest.setResponse(TestResponse.withResults.fields.all);
@@ -222,54 +254,47 @@ describe("Successful result from call to Yahoo! API", function () {
     }
 
     beforeEach(function(){
-      fakeXMLHTTPRequest.reset();
       item = undefined;
     });
 
-    describe("When required in options (field: true)", function() {
-      it("should have 'title' when required", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.all,
-          { title: true });
+    describe("present in options.fields", function() {
+      it("should have 'title'", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.all, { fields: ['title'] });
         expect(item.title).toBeDefined();
       });
-      it("should have 'link' when required", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.all,
-          { link: true });
+      it("should have 'link'", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.all, { fields: ['link'] });
         expect(item.link).toBeDefined();
       });
-      it("should have 'pubDate' when required", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.all,
-          { pubDate: true });
+      it("should have 'pubDate'", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.all, { fields: ['pubDate'] });
         expect(item.pubDate).toBeDefined();
       });
-      it("should have 'description' when required", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.all,
-          { description: true });
+      it("should have 'description'", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.all, { fields: ['description'] });
         expect(item.description).toBeDefined();
       });
     });
-    describe("When not required in options (field: false)", function() {
-      it("should not have 'title' when not required", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.none,
-          { fields: ['link'] });
+
+    describe("not present in options.fields", function() {
+      it("should not have 'title'", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.none, { fields: ['link'] });
         expect(item.title).toBeUndefined();
       });
-      it("should not have 'link' when not required", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.none,
-          { fields: ['date'] });
+      it("should not have 'link'", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.none, { fields: ['date'] });
         expect(item.link).toBeUndefined();
       });
-      it("should not have 'pubDate' when not required", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.none,
-          { fields:['description'] });
+      it("should not have 'pubDate'", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.none, { fields:['description'] });
         expect(item.pubDate).toBeUndefined();
       });
-      it("should not have 'description' when not required", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.none,
-          { fields: ['title'] });
+      it("should not have 'description'", function () {
+        item = getFirstNanoResult(TestResponse.withResults.fields.none, { fields: ['title'] });
         expect(item.description).toBeUndefined();
       });
     });
+
     describe("Defaults", function() {
       it("should have 'title'", function () {
         item = getFirstNanoResult(TestResponse.withResults.fields.default, {});
@@ -287,7 +312,7 @@ describe("Successful result from call to Yahoo! API", function () {
         item = getFirstNanoResult(TestResponse.withResults.fields.default, {});
         expect(item.description).toBeUndefined();
       });
-      it("should have 'title' as default, even when not required, when all fields are not required", function () {
+      it("should have 'title' as default, when options.fields has not any valid field enumerated", function () {
         var options = { fields: [] };
         item = getFirstNanoResult(TestResponse.withResults.fields.onlyTitle, options);
         expect(item.title).toBeDefined();

@@ -1,6 +1,6 @@
 {
   "name": "nanofeed",
-  "description": "Tiny feed parser built in JavaScript",
+  "description": "Tiny RSS feed parser built in JavaScript",
   "main": "nanofeed.js",
   "authors": [
     "Andre Figueiredo <andretf@gmail.com>"
@@ -14,13 +14,14 @@
     "tiny",
     "fast"
   ],
-  "homepage": "https://github.com/andretf/nano-feed",
+  "homepage": "https://github.com/andretf/nanofeed",
   "moduleType": [],
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "spec"
   ]
 }

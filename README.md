@@ -14,9 +14,9 @@ Multiple independent successive calls.
 [![Bower version](https://badge.fury.io/bo/nanofeed.svg)](https://badge.fury.io/bo/nanofeed)
 
     bower install nanofeed
-[![npm version](https://badge.fury.io/js/nano-feed.svg)](https://badge.fury.io/js/nano-feed)
+[![npm version](https://badge.fury.io/js/nanofeed.svg)](https://badge.fury.io/js/nanofeed)
 
-    npm install nano-feed
+    npm install nanofeed
   
 ##Examples
 ```

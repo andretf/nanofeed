@@ -1,13 +1,13 @@
 {
-  "name": "nano-feed",
+  "name": "nanofeed",
   "version": "0.5.0",
-  "description": "Tiny feed parser built in JavaScript",
+  "description": "Tiny RSS feed parser built in JavaScript.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/andretf/nano-feed.git"
+    "url": "https://github.com/andretf/nanofeed.git"
   },
   "author": "Andre Figueiredo <andretf@gmail.com>",
-  "main": "nano-feed.js",
+  "main": "nanofeed.js",
   "license": "MIT",
   "scripts": {
     "test": "./node_modules/karma/bin/karma start"

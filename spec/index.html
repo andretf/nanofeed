@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Test suite for nanofeed</title>
+  <link rel="shortcut icon" type="image/png" href="test/jasmine/jasmine_favicon.png">
+  <link rel="stylesheet" href="test/jasmine/jasmine.min.css">
+  <script src="test/jasmine/jasmine-all.min.js"></script>
+  <script src="../nanofeed.js"></script>
+  <script src="test/fakeXMLHTTPRequest.js"></script>
+  <script src="test/helpers.js"></script>
+  <script src="test/setup.js"></script>
+  <script src="specs.js"></script>
+  <script>
+    var reporterOptions = {
+      timer: new jasmine.Timer,
+      showColors: true,
+      print: function (msg) {
+        console.log(msg);
+      }
+    };
+    jasmine.getEnv().addReporter(new TerminalReporter(reporterOptions));
+  </script>
+</head>
+<body>
+</body>
+</html>

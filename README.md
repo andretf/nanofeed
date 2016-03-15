@@ -11,12 +11,12 @@ Multiple feeds sources.<br>
 Multiple independent successive calls.
 
 ##Installation
-[![Bower version](https://badge.fury.io/bo/nanofeed.svg)](https://badge.fury.io/bo/nanofeed)
 
     bower install nanofeed
-[![npm version](https://badge.fury.io/js/nanofeed.svg)](https://badge.fury.io/js/nanofeed)
+[![Bower version](https://badge.fury.io/bo/nanofeed.svg)](https://badge.fury.io/bo/nanofeed)
 
     npm install nanofeed
+[![npm version](https://badge.fury.io/js/nanofeed.svg)](https://badge.fury.io/js/nanofeed)
   
 ##Examples
 ```

@@ -1,12 +1,12 @@
 {
   "name": "nanofeed",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Tiny RSS feed parser built in JavaScript.",
   "repository": {
     "type": "git",
     "url": "https://github.com/andretf/nanofeed.git"
   },
-  "author": "Andre Figueiredo <andretf@gmail.com>",
+  "author": "Andre Figueiredo <andretf.inf@gmail.com>",
   "main": "nanofeed.js",
   "license": "MIT",
   "scripts": {

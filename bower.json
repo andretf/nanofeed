@@ -3,13 +3,17 @@
   "description": "Tiny RSS feed parser built in JavaScript",
   "main": "nanofeed.js",
   "authors": [
-    "Andre Figueiredo <andretf@gmail.com>"
+    "Andre Figueiredo <andretf.inf@gmail.com>"
   ],
   "license": "MIT",
   "keywords": [
     "feed",
     "parser",
     "javascript",
+    "browse",
+    "client-side",
+    "Yahoo API",
+    "YQL",
     "vanilla",
     "tiny",
     "fast"

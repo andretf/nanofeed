@@ -87,7 +87,22 @@ Callback function called on success.<br>
     - pubDate: `date`
     - description: `string`
 
-For further documentation see specifications at [nanofeed/spec/specs.js](https://github.com/andretf/nanofeed/blob/master/spec/specs.js).
+For further documentation see specifications.
+
+##Specification & Tests
+
+The specification of this library is written in BDD ubiquitous language.
+It is used to run tests with [Jasmine](https://github.com/jasmine/jasmine) JavaScript test framework.
+
+Here is the location of the specification and results of its test on library:
+- project source code at:
+    - [nanofeed/spec/specs.js](https://github.com/andretf/nanofeed/blob/master/spec/specs.js)
+    - [nanofeed/spec/specRunner.html](https://github.com/andretf/nanofeed/blob/master/spec/specRunner.html)
+- online at:
+    - https://andretf.github.io/nanofeed/spec
+    - https://andretf.github.io/nanofeed/spec/specs.js
+
+To see the coverage of these tests see https://andretf.github.io/nanofeed/spec/coverage. They are runned with [karma](https://github.com/karma-runner/karma) + [karma-coverage](https://github.com/karma-runner/karma-coverage).
 
 ##Support
 

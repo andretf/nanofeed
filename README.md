@@ -13,13 +13,10 @@ Multiple independent successive calls.
 ##Installation
 
     bower install nanofeed
-[![Bower version](https://badge.fury.io/bo/nanofeed.svg)](https://badge.fury.io/bo/nanofeed)
-
     npm install nanofeed
-[![npm version](https://badge.fury.io/js/nanofeed.svg)](https://badge.fury.io/js/nanofeed)
-  
+
 ##Examples
-```
+```javascript
 // minimal
 nanofeed.fetch(url, function(items) {
   console.log(items);
@@ -38,10 +35,10 @@ nanofeed.fetch(url, {
   }
 );
 
-// Multiple feed sources
+// multiple feed sources
 nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
 
-// Successive calls
+// successive calls
 nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
         .fetch(weatherFeedUrl, addWeatherFeedItems);
 ```

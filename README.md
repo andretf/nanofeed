@@ -2,7 +2,6 @@
 [![Code Climate](https://codeclimate.com/github/andretf/nanofeed/badges/gpa.svg)](https://codeclimate.com/github/andretf/nanofeed)
 [![Build Status](https://travis-ci.org/andretf/nanofeed.svg?branch=master)](https://travis-ci.org/andretf/nanofeed)
 [![Test Coverage](https://codeclimate.com/github/andretf/nanofeed/badges/coverage.svg)](https://codeclimate.com/github/andretf/nanofeed/coverage)
-
 # nanofeed
 #### Tiny RSS feed parser built in JavaScript.
 
@@ -14,81 +13,93 @@ Multiple independent successive calls.
 ##Installation
 
     bower install nanofeed
-[![Bower version](https://badge.fury.io/bo/nanofeed.svg)](https://badge.fury.io/bo/nanofeed)
-
     npm install nanofeed
-[![npm version](https://badge.fury.io/js/nanofeed.svg)](https://badge.fury.io/js/nanofeed)
-  
+
 ##Examples
-```
+```javascript
 // minimal
 nanofeed.fetch(url, function(items) {
   console.log(items);
 });
 
-// Multiple feed sources
-nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
-
-// Successive calls
-nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
-        .fetch(weatherFeedUrl, addWeatherFeedItems);
-
-// Callback function receive array of items retrieved from the feed
-function callback(items){
-  items.forEach(function(x){
-    var newItemHtml = '<li>' + items.title + ' - ' + item.date + '</li>';
-    document.getElementById('feed').innerHTML += newItemHtml;
-  });
-}
-
-// Setting options for a function call
+// with options
 nanofeed.fetch(url, {
     fields: ['title', 'date'],
     qty: 15
   },
-  callback
+  function(items){
+    items.forEach(function(x){
+      var newItemHtml = '<li>' + items.title + ' - ' + item.date + '</li>';
+      document.getElementById('feed').innerHTML += newItemHtml;
+    });
+  }
 );
 
-// or globally for all function calls
-nanofeed.options = {
-    fields: ['title', 'date'],
-    qty: 15
-};
-nanofeed.fetch(url, callback);
-nanofeed.fetch(weatherFeedUrl, addWeatherFeedItems);
+// multiple feed sources
+nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
+
+// successive calls
+nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
+        .fetch(weatherFeedUrl, addWeatherFeedItems);
 ```
 
 ##Documentation
 ####`nanofeed.fetch(feed_url, [options,] success_callback);`
 
-- **feed_url**: absolute URL(s) of the RSS feed(s).<br>
-  <*required*> **`string`** | **`string array`**
+- ####feed_url<br>
+Absolute URL(s) of the RSS feed(s).<br>
+*required*<br>
+**`string`** | **`string array`**
 
-- **options**: options about format of result returned from feed sources.<br>
-  <*optional*> **`object`**<br>
+- ####options<br>
+Options about format of result returned from feed sources.<br>
+*optional*<br>
+**`object`**<br>
 
-  - ****fields****:  fields to be returned from feed source(s).<br>
-    <*optional*> **`string array`**<br>
-    accepted values: `title` | `link` | `date` | `description`.
-    default: `['title', 'link']`<br>
+  - **fields**<br>
+  Fields to be returned from feed source(s).<br>
+  *optional* <br>
+  **`string array`**<br>
+  default: `['title', 'link']`<br>
+  accepted values: `title` | `link` | `date` | `description`.
 
-  - ****qty****: quantity of feed entries to return.<br>
-    <*optional*> **`integer`**<br>
-    accepted values: `>0` *<br>
-    default: `5`<br>
-    <sup>*</sup><sup>(maximum limited by feed source or Feed API)</sup>
+  - **qty**<br>
+  Quantity of feed entries to return.<br>
+  *optional*<br>
+  **`integer`**<br>
+  default: `5`<br>
+  accepted values: `>0` *<br>
+  <sup>*</sup><sup>(maximum limited by feed source or Feed API)</sup>
 
-- **success_callback**: callback function called on success.<br>
-  <*required*> **`function(data)`**
+- ####success_callback<br>
+Callback function called on success.<br>
+*required*<br>
+**`function(data)`**
 
-  - **data**: list of feed entries ordered by most recent publish date.<br>
-    **`array of object:`**<br>
-      - title: `string`
-      - link: `string`
-      - pubDate: `date`
-      - description: `string`
+  - **data**<br>
+  List of feed entries ordered by most recent publish date.<br>
+  **`array of object:`**<br>
+    - title: `string`
+    - link: `string`
+    - pubDate: `date`
+    - description: `string`
 
-For further documentation see specifications at [nanofeed/spec/specs.js](https://github.com/andretf/nanofeed/blob/master/spec/specs.js).
+For further documentation see specifications.
+
+##Specification & Tests
+
+The specification of this library is written in BDD ubiquitous language.
+It is used to run tests with [Jasmine](https://github.com/jasmine/jasmine) JavaScript test framework.
+
+Here is the location of the specification and results of its test on library:
+- project source code at:
+    - [nanofeed/spec/specs.js](https://github.com/andretf/nanofeed/blob/master/spec/specs.js)
+    - [nanofeed/spec/specRunner.html](https://github.com/andretf/nanofeed/blob/master/spec/specRunner.html)
+- online at:
+    - https://andretf.github.io/nanofeed/spec
+    - https://andretf.github.io/nanofeed/spec/specs.js
+
+To see the coverage of these tests see https://andretf.github.io/nanofeed/spec/coverage. They are runned with [karma](https://github.com/karma-runner/karma) + [karma-coverage](https://github.com/karma-runner/karma-coverage).
 
 ##Support
 

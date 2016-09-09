@@ -15,7 +15,7 @@ var TestResponse = {
       default: JSON.stringify({"query":{"count":1,"results":{"results":{"item":[{"title":"Ex-Michigan Lawmakers Face Felony Charges Over Affair - ABC News","link":"http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNELvlYHIrmFSJVrIk…om/Politics/wireStory/lawmakers-forced-office-affair-face-charges-37226059"},{"title":"The Latest: Mixed Reports as Cease-Fire Takes Hold in Syria - New York Times","link":"http://news.google.com/news/url?sa=t&fd=R&ct2=us&usg=AFQjCNEzwqk9on4KyXkJ6X…times.com/aponline/2016/02/26/world/middleeast/ap-ml-syria-the-latest.html"}]}}}}),
       onlyTitle: JSON.stringify({"query":{"count":1,"results":{"results":{"item":[{"title":"Ex-Michigan Lawmakers Face Felony Charges Over Affair - ABC News"},{"title":"The Latest: Mixed Reports as Cease-Fire Takes Hold in Syria - New York Times"}]}}}}),
       noTitle: JSON.stringify({"query":{"count":1,"results":{"results":{"item":[{"pubDate":"Fri, 26 Feb 2016 23:28:00 GMT"},{"pubDate":"Fri, 26 Feb 2016 23:26:15 GMT"}]}}}}),
-      none: JSON.stringify({"query":{"count":1,"results":{"results":{"item":[{},{}]}}}})
+      none: JSON.stringify({"query":{"count":1,"results":{"results":{"item":[]}}}})
     }
   }
 };

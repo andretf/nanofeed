@@ -16,31 +16,42 @@ Multiple independent successive calls.
     npm install nanofeed
 
 ##Examples
-```javascript
+```
 // minimal
 nanofeed.fetch(url, function(items) {
   console.log(items);
 });
 
-// with options
+// Multiple feed sources
+nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
+
+// Successive calls
+nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
+        .fetch(weatherFeedUrl, addWeatherFeedItems);
+
+// Callback function receive array of items retrieved from the feed
+function callback(items){
+  items.forEach(function(x){
+    var newItemHtml = '<li>' + items.title + ' - ' + item.date + '</li>';
+    document.getElementById('feed').innerHTML += newItemHtml;
+  });
+}
+
+// Setting options for a function call
 nanofeed.fetch(url, {
     fields: ['title', 'date'],
     qty: 15
   },
-  function(items){
-    items.forEach(function(x){
-      var newItemHtml = '<li>' + items.title + ' - ' + item.date + '</li>';
-      document.getElementById('feed').innerHTML += newItemHtml;
-    });
-  }
+  callback
 );
 
-// multiple feed sources
-nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
-
-// successive calls
-nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
-        .fetch(weatherFeedUrl, addWeatherFeedItems);
+// or globally for all function calls
+nanofeed.options = {
+    fields: ['title', 'date'],
+    qty: 15
+};
+nanofeed.fetch(url, callback);
+nanofeed.fetch(weatherFeedUrl, addWeatherFeedItems);
 ```
 
 ##Documentation

@@ -50,6 +50,7 @@ var nanofeed = (function () {
   }
 
   return {
+    options: defaultOptions,
     fetch: function (urls, options, callback) {
       if (typeof urls === 'string') {
         urls = [urls];

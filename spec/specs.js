@@ -71,7 +71,6 @@ describe("Parameter", function () {
         successCallback = jasmine.createSpy('successCallback');
         fakeXMLHTTPRequest.setResponse(TestResponse.withResults.fields.default);
         nanofeed.fetch(urls.valid.string, successCallback);
-        expect(successCallback).toHaveBeenCalled();
         item = getCallbackParam(successCallback).first();
       });
       afterEach(function () {
@@ -121,6 +120,38 @@ describe("Parameter", function () {
     it("(When) function (then) should not throw exception", function(){
       expect(callFn(function(){})).not.toThrow();
     });
+  });
+});
+
+describe("nanofeed.options", function () {
+  var successCallback;
+
+  function getNanoResults(testResponse, customOptions){
+    successCallback = jasmine.createSpy('successCallback');
+    fakeXMLHTTPRequest.setResponse(testResponse);
+
+    if (customOptions) {
+      nanofeed.fetch(urls.valid.string, customOptions, successCallback);
+    }
+    else {
+      nanofeed.fetch(urls.valid.string, successCallback);
+    }
+
+    return getCallbackParam(successCallback);
+  }
+
+  it("should be used as options on all after calls", function () {
+    nanofeed.options.qty = 1;
+    var data = getNanoResults(TestResponse.withResults.oneResult);
+    expect(data.length).toBe(nanofeed.options.qty);
+  });
+
+  it("should be lower precedence than parameter options on nano.fetch", function () {
+    nanofeed.options.qty = 3;
+    var customQty = 1;
+    var data = getNanoResults(TestResponse.withResults.oneResult,
+                              { qty: customQty });
+    expect(data.length).toBe(customQty);
   });
 });
 

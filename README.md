@@ -16,7 +16,7 @@ Multiple independent successive calls.
     npm install nanofeed
 
 ##Examples
-```
+```javascript
 // minimal
 nanofeed.fetch(url, function(items) {
   console.log(items);

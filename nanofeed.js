@@ -112,5 +112,5 @@ var nanofeed = (function () {
 
       return this;
     }
-  }
+  };
 }());

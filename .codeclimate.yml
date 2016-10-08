@@ -1,4 +1,3 @@
----
 engines:
   duplication:
     enabled: true
@@ -11,7 +10,9 @@ engines:
     enabled: true
 ratings:
   paths:
-  - "*.js"
+  - "nanofeed.js"
 exclude_paths:
-- spec/
+- "spec/test"
 - "**/*.min.js"
+- "!**.js"
+- "!**.conf.js"

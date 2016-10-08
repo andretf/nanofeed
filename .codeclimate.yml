@@ -15,6 +15,6 @@ ratings:
   - "nanofeed.js"
 exclude_paths:
 - "spec/test"
-- "**/*.min.js"
+- "**.min.js"
 - "!**.js"
 - "!**.conf.js"

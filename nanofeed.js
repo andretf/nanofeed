@@ -1,5 +1,6 @@
 /* exported nanofeed */
-var nanofeed = (function () {  // eslint-disable-line no-unused-vars
+// eslint-disable-next-line no-unused-vars
+var nanofeed = (function () {
   'use strict';
 
   var defaultOptions = {
@@ -34,7 +35,8 @@ var nanofeed = (function () {  // eslint-disable-line no-unused-vars
   }
 
   function getJSON(url, callback) {
-    var request = new XMLHttpRequest(); // eslint-disable-line no-undef
+    // eslint-disable-next-line no-undef
+    var request = new XMLHttpRequest();
     request.onload = function () {
       var data;
       try {

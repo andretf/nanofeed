@@ -4,6 +4,8 @@ engines:
     config:
       languages:
       - javascript
+    exclude_paths:
+    - "spec"
   eslint:
     enabled: true
   fixme:

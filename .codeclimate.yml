@@ -1,24 +1,18 @@
+---
 engines:
   duplication:
     enabled: true
     config:
       languages:
       - javascript
-    exclude_paths:
-    - "spec/"
-    - "*.min.js"
   eslint:
     enabled: true
   fixme:
     enabled: true
-    exclude_paths:
-    - "spec/"
 ratings:
   paths:
   - "nanofeed.js"
 exclude_paths:
-- ".idea/"
-- "spec/test/"
-- "*.min.js"
-- "*.conf.js"
-- "!**.js"
+- ".*"
+- "*"
+- "!nanofeed.js"

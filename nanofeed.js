@@ -49,68 +49,71 @@ var nanofeed = (function () { // eslint-disable-line no-unused-vars
     request.send();
   }
 
-  return {
-    options: defaultOptions,
-    fetch: function (urls, options, callback) {
-      if (typeof urls === 'string') {
-        urls = [urls];
-      }
-      else if (!Array.isArray(urls) || !urls.length) {
-        return this;
-      }
+  function fetch(urls, options, callback) {
+    if (typeof urls === 'string') {
+      urls = [urls];
+    }
+    else if (!Array.isArray(urls) || !urls.length) {
+      return this;
+    }
 
-      if (typeof options === 'function') {
-        callback = options;
-        options = defaultOptions;
-      }
+    if (typeof options === 'function') {
+      callback = options;
+      options = defaultOptions;
+    }
 
-      options.qty = isNaN(options.qty) ? defaultOptions.qty : parseInt(options.qty);
+    options.qty = isNaN(options.qty) ? defaultOptions.qty : parseInt(options.qty);
 
-      // Optimized cross-product make simple array of results in 'query.results.results.item'
-      // All tables Env allows select from 'query.multi'
-      var config = {
-        baseUrl: '//query.yahooapis.com/v1/public/yql?format=json&callback=&' +
-        'crossProduct=optimized&env=http://datatables.org/alltables.env',
-        template: 'SELECT {COLS} FROM query.multi WHERE queries=\'' +
-        'SELECT title,link,pubDate,description ' +
-        'FROM rss ' +
-        'WHERE url in ("{URLS}")' +
-        '|UNIQUE(field="title",hideRepeatCount="true")' +
-        '|UNIQUE(field="link",hideRepeatCount="true")' +
-        '|SORT(field="pubDate",descending="true")' +
-        '|TRUNCATE({QTY})\''
-      };
+    // Optimized cross-product make simple array of results in 'query.results.results.item'
+    // All tables Env allows select from 'query.multi'
+    var config = {
+      baseUrl: '//query.yahooapis.com/v1/public/yql?format=json&callback=&' +
+      'crossProduct=optimized&env=http://datatables.org/alltables.env',
+      template: 'SELECT {COLS} FROM query.multi WHERE queries=\'' +
+      'SELECT title,link,pubDate,description ' +
+      'FROM rss ' +
+      'WHERE url in ("{URLS}")' +
+      '|UNIQUE(field="title",hideRepeatCount="true")' +
+      '|UNIQUE(field="link",hideRepeatCount="true")' +
+      '|SORT(field="pubDate",descending="true")' +
+      '|TRUNCATE({QTY})\''
+    };
 
-      var query = config.template
+    var query = config.template
         .replace('{COLS}', getQueryColumns(options.fields))
         .replace('{URLS}', urls.join('","'))
         .replace('{QTY}', options.qty);
 
-      var url = config.baseUrl + '&q=' + encodeURIComponent(query);
+    var url = config.baseUrl + '&q=' + encodeURIComponent(query);
 
-      getJSON(url, function (json) {
-        if (json && json.query && json.query.count >= 0) {
-          var data = [];
-          if (json.query.count) {
-            try {
-              var result = json.query.results.results.item;
-              data = result.length ? result : [result];
+    getJSON(url, function (json) {
+      if (json && json.query && json.query.count >= 0) {
+        var data = [];
+        if (json.query.count) {
+          try {
+            var result = json.query.results.results.item;
+            data = result.length ? result : [result];
 
-              if (options.fields.indexOf('date') > -1) {
-                data.forEach(function (item) {
-                  item.pubDate = new Date(item.pubDate);
-                });
-              }
-            }
-            catch (e) {
-              // ignore error
+            if (options.fields.indexOf('date') > -1) {
+              data.forEach(function (item) {
+                item.pubDate = new Date(item.pubDate);
+              });
             }
           }
-          return callback(data);
+          catch (e) {
+            // ignore error
+          }
         }
-      });
+        return callback(data);
+      }
+    });
 
-      return this;
-    }
+    return this;
+  }
+
+  return {
+    options: defaultOptions,
+    fetch: fetch
   };
 }());
+

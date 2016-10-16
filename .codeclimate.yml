@@ -13,6 +13,8 @@ ratings:
   paths:
   - "nanofeed.js"
 exclude_paths:
-- ".*"
-- "*"
-- "!nanofeed.js"
+- .idea/
+- nodemodules/
+- spec/
+- "*.min.js"
+- "*.conf.js"

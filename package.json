@@ -1,6 +1,6 @@
 {
   "name": "nanofeed",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tiny RSS feed parser built in JavaScript.",
   "repository": {
     "type": "git",

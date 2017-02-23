@@ -69,7 +69,7 @@ var nanofeed = (function () { // eslint-disable-line no-unused-vars
     var config = {
       baseUrl: '//query.yahooapis.com/v1/public/yql?format=json&callback=&' +
       'crossProduct=optimized&env=http://datatables.org/alltables.env',
-      template: 'SELECT {COLS} FROM query.multi WHERE queries=\'' +
+      template: 'SELECT {COLS} FROM yql.query.multi WHERE queries=\'' +
       'SELECT title,link,pubDate,description ' +
       'FROM rss ' +
       'WHERE url in ("{URLS}")' +
@@ -116,4 +116,3 @@ var nanofeed = (function () { // eslint-disable-line no-unused-vars
     fetch: fetch
   };
 }());
-

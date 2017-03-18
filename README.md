@@ -11,12 +11,12 @@ Multiple feeds sources.<br>
 Multiple independent successive calls.<br>
 Uses Yahoo! API
 
-##Installation
+## Installation
 
     bower install nanofeed
     npm install nanofeed
 
-##Examples
+## Examples
 ```javascript
 // minimal
 nanofeed.fetch(url, function(items) {
@@ -55,15 +55,15 @@ nanofeed.fetch(url, callback);
 nanofeed.fetch(weatherFeedUrl, addWeatherFeedItems);
 ```
 
-##Documentation
-####`nanofeed.fetch(feed_url, [options,] success_callback);`
+## Documentation
+#### `nanofeed.fetch(feed_url, [options,] success_callback);`
 
-- ####feed_url<br>
+- #### feed_url<br>
 Absolute URL(s) of the RSS feed(s).<br>
 *required*<br>
 **`string`** | **`string array`**
 
-- ####options<br>
+- #### options<br>
 Options about format of result returned from feed sources.<br>
 *optional*<br>
 **`object`**<br>
@@ -83,7 +83,7 @@ Options about format of result returned from feed sources.<br>
   accepted values: `>0` *<br>
   <sup>*</sup><sup>(maximum limited by feed source or Feed API)</sup>
 
-- ####success_callback<br>
+- #### success_callback<br>
 Callback function called on success.<br>
 *required*<br>
 **`function(data)`**
@@ -98,7 +98,7 @@ Callback function called on success.<br>
 
 For further documentation see specifications.
 
-##Specification & Tests
+## Specification & Tests
 
 The specification of this library is written in BDD ubiquitous language.
 It is used to run tests with [Jasmine](https://github.com/jasmine/jasmine) JavaScript test framework.
@@ -113,7 +113,7 @@ Here is the location of the specification and results of its test on library:
 
 To see the coverage of these tests see https://andretf.github.io/nanofeed/spec/coverage. They are runned with [karma](https://github.com/karma-runner/karma) + [karma-coverage](https://github.com/karma-runner/karma-coverage).
 
-##Support
+## Support
 
 Desktop | Mobile
 --------|---------

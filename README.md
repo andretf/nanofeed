@@ -5,10 +5,11 @@
 # nanofeed
 #### Tiny RSS feed parser built in JavaScript.
 
-No dependencies.<br>
+No library dependencies.<br>
 Asynchronous requests.<br>
 Multiple feeds sources.<br>
-Multiple independent successive calls.
+Multiple independent successive calls.<br>
+Uses Yahoo! API
 
 ##Installation
 

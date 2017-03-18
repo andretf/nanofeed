@@ -123,5 +123,5 @@ IE10+ support | IE Mobile
 Safari  | Safari Mobile
 Opera   | Android
 
-##Authoring
+## Authoring
 - Andre Figueiredo <andretf.inf@gmail.com>

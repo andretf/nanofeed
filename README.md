@@ -3,13 +3,13 @@
 [![Build Status](https://travis-ci.org/andretf/nanofeed.svg?branch=master)](https://travis-ci.org/andretf/nanofeed)
 [![Test Coverage](https://codeclimate.com/github/andretf/nanofeed/badges/coverage.svg)](https://codeclimate.com/github/andretf/nanofeed/coverage)
 # nanofeed
-#### Tiny RSS feed parser built in JavaScript.
+#### Tiny RSS feed parser client built in JavaScript.
 
 No library dependencies.<br>
 Asynchronous requests.<br>
 Multiple feeds sources.<br>
 Multiple independent successive calls.<br>
-Uses Yahoo! API
+Uses [Yahoo! YQL Plataform](https://developer.yahoo.com/yql)
 
 ## Installation
 

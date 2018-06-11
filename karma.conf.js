@@ -1,7 +1,7 @@
 module.exports = function(config) {
   config.set({
     files: [
-      'nanofeed.js',
+      './src/nanofeed.js',
       './spec/test/*.js',
       './spec/*.js'
     ],
@@ -9,7 +9,7 @@ module.exports = function(config) {
     singleRun: true,
     browsers: ['PhantomJS'],
     reporters: ['progress', 'coverage'],
-    preprocessors: { './nanofeed.js': ['coverage'] },
+    preprocessors: { './src/nanofeed.js': ['coverage'] },
     coverageReporter: {
       type : 'lcov',
       dir : 'karma',

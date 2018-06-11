@@ -17,8 +17,7 @@ var nanofeed = (function () { // eslint-disable-line no-unused-vars
       if (!fields.length) {
         fields = defaultOptions.fields;
       }
-    }
-    else {
+    } else {
       fields = defaultOptions.fields;
     }
 
@@ -39,8 +38,7 @@ var nanofeed = (function () { // eslint-disable-line no-unused-vars
       var data;
       try {
         data = JSON.parse(request.responseText);
-      }
-      catch (e) {
+      } catch (e) {
         return;
       }
       return callback(data);
@@ -52,8 +50,7 @@ var nanofeed = (function () { // eslint-disable-line no-unused-vars
   function fetch(urls, options, callback) {
     if (typeof urls === 'string') {
       urls = [urls];
-    }
-    else if (!Array.isArray(urls) || !urls.length) {
+    } else if (!Array.isArray(urls) || !urls.length) {
       return this;
     }
 
@@ -68,21 +65,21 @@ var nanofeed = (function () { // eslint-disable-line no-unused-vars
     // All tables Env allows select from 'query.multi'
     var config = {
       baseUrl: '//query.yahooapis.com/v1/public/yql?format=json&callback=&' +
-      'crossProduct=optimized&env=http://datatables.org/alltables.env',
-      template: 'SELECT {COLS} FROM yql.query.multi WHERE queries=\'' +
-      'SELECT title,link,pubDate,description ' +
-      'FROM rss ' +
-      'WHERE url in ("{URLS}")' +
-      '|UNIQUE(field="title",hideRepeatCount="true")' +
-      '|UNIQUE(field="link",hideRepeatCount="true")' +
-      '|SORT(field="pubDate",descending="true")' +
-      '|TRUNCATE({QTY})\''
+        'crossProduct=optimized&env=http://datatables.org/alltables.env',
+      template: 'SELECT {COLS} FROM query.multi WHERE queries=\'' +
+        'SELECT title,link,pubDate,description ' +
+        'FROM rss ' +
+        'WHERE url in ("{URLS}")' +
+        '|UNIQUE(field="title",hideRepeatCount="true")' +
+        '|UNIQUE(field="link",hideRepeatCount="true")' +
+        '|SORT(field="pubDate",descending="true")' +
+        '|TRUNCATE({QTY})\''
     };
 
     var query = config.template
-        .replace('{COLS}', getQueryColumns(options.fields))
-        .replace('{URLS}', urls.join('","'))
-        .replace('{QTY}', options.qty);
+      .replace('{COLS}', getQueryColumns(options.fields))
+      .replace('{URLS}', urls.join('","'))
+      .replace('{QTY}', options.qty);
 
     var url = config.baseUrl + '&q=' + encodeURIComponent(query);
 
@@ -99,8 +96,7 @@ var nanofeed = (function () { // eslint-disable-line no-unused-vars
                 item.pubDate = new Date(item.pubDate);
               });
             }
-          }
-          catch (e) {
+          } catch (e) {
             // ignore error
           }
         }

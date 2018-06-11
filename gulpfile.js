@@ -1,14 +1,14 @@
 'use strict';
 
 var gulp = require('gulp'),
-    eslint = require('gulp-eslint'),
-    uglify = require('gulp-uglify'),
-    rename = require('gulp-rename'),
-    size = require('gulp-size'),
-    jasmine = require('gulp-jasmine-phantom');
+  eslint = require('gulp-eslint'),
+  uglify = require('gulp-uglify'),
+  rename = require('gulp-rename'),
+  size = require('gulp-size'),
+  jasmine = require('gulp-jasmine-phantom');
 
-var source = './nanofeed.js';
-var dest = './nanofeed.min.js';
+var source = './src/nanofeed.js';
+var dest = 'nanofeed.min.js';
 
 gulp.task('test', function () {
   return gulp.src('spec/*.js')
@@ -30,10 +30,13 @@ gulp.task('lint', function () {
     }));
 });
 
-gulp.task('default', ['test', 'lint'], function () {
+gulp.task('build', ['test', 'lint'], function () {
   return gulp.src(source)
+    .pipe(gulp.dest('./dist'))
     .pipe(rename(dest))
     .pipe(uglify())
     .pipe(size())
-    .pipe(gulp.dest('./'));
+    .pipe(gulp.dest('./dist'));
 });
+
+gulp.task('default', ['build']);

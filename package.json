@@ -7,7 +7,7 @@
     "url": "https://github.com/andretf/nanofeed.git"
   },
   "author": "Andre Figueiredo <andretf.inf@gmail.com>",
-  "main": "nanofeed.js",
+  "main": "./dist/nanofeed.js",
   "license": "MIT",
   "scripts": {
     "test": "./node_modules/karma/bin/karma start"

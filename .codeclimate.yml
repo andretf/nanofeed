@@ -5,16 +5,12 @@ engines:
     config:
       languages:
       - javascript
-  eslint:
-    enabled: true
   fixme:
     enabled: true
 ratings:
   paths:
-  - "nanofeed.js"
+  - "src/*.js"
+  - "spec/*.js"
 exclude_paths:
-- .idea/
-- nodemodules/
-- spec/
-- "*.min.js"
-- "*.conf.js"
+- spec/support/**/*
+- "**/*.min.js"

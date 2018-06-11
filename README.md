@@ -13,7 +13,6 @@ Uses [Yahoo! YQL Plataform](https://developer.yahoo.com/yql)
 
 ## Installation
 
-    bower install nanofeed
     npm install nanofeed
 
 ## Examples
@@ -31,8 +30,8 @@ nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
         .fetch(weatherFeedUrl, addWeatherFeedItems);
 
 // Callback function receive array of items retrieved from the feed
-function callback(items){
-  items.forEach(function(x){
+function callback(items) {
+  items.forEach(function(x) {
     var newItemHtml = '<li>' + items.title + ' - ' + item.date + '</li>';
     document.getElementById('feed').innerHTML += newItemHtml;
   });
@@ -48,8 +47,8 @@ nanofeed.fetch(url, {
 
 // or globally for all function calls
 nanofeed.options = {
-    fields: ['title', 'date'],
-    qty: 15
+  fields: ['title', 'date'],
+  qty: 15
 };
 nanofeed.fetch(url, callback);
 nanofeed.fetch(weatherFeedUrl, addWeatherFeedItems);
@@ -59,34 +58,34 @@ nanofeed.fetch(weatherFeedUrl, addWeatherFeedItems);
 #### `nanofeed.fetch(feed_url, [options,] success_callback);`
 
 - #### feed_url<br>
-Absolute URL(s) of the RSS feed(s).<br>
+  Absolute URL(s) of the RSS feed(s).<br>
 *required*<br>
-**`string`** | **`string array`**
+  **`string`** | **`string array`**
 
 - #### options<br>
-Options about format of result returned from feed sources.<br>
+  Options about format of result returned from feed sources.<br>
 *optional*<br>
-**`object`**<br>
+  **`object`**<br>
 
   - **fields**<br>
-  Fields to be returned from feed source(s).<br>
+    Fields to be returned from feed source(s).<br>
   *optional* <br>
-  **`string array`**<br>
-  default: `['title', 'link']`<br>
-  accepted values: `title` | `link` | `date` | `description`.
+    **`string array`**<br>
+    default: `['title', 'link']`<br>
+    accepted values: `title` | `link` | `date` | `description`.
 
   - **qty**<br>
-  Quantity of feed entries to return.<br>
+    Quantity of feed entries to return.<br>
   *optional*<br>
-  **`integer`**<br>
-  default: `5`<br>
+    **`integer`**<br>
+    default: `5`<br>
   accepted values: `>0` *<br>
   <sup>*</sup><sup>(maximum limited by feed source or Feed API)</sup>
 
 - #### success_callback<br>
-Callback function called on success.<br>
+  Callback function called on success.<br>
 *required*<br>
-**`function(data)`**
+  **`function(data)`**
 
   - **data**<br>
   List of feed entries ordered by most recent publish date.<br>

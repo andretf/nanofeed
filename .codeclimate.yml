@@ -9,8 +9,7 @@ engines:
     enabled: true
 ratings:
   paths:
-  - "src/*.js"
-  - "spec/*.js"
+  - src/*.js
 exclude_paths:
-- spec/support/**/*
-- "**/*.min.js"
+- spec/*.js
+- dist/*.js

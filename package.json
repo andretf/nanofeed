@@ -10,6 +10,7 @@
   "main": "./dist/nanofeed.js",
   "license": "MIT",
   "scripts": {
+    "build": "gulp build",
     "test": "karma start",
     "test:dev": "npm test -- --no-single-run"
   },

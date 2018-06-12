@@ -1,39 +1,56 @@
-/* exported nanofeed */
-var nanofeed = (function () { // eslint-disable-line no-unused-vars
+(function () {
   'use strict';
+
+  if (!window || !window.document) {
+    throw new Error("nanofeed requires a window with a document");
+  }
 
   var defaultOptions = {
     fields: ['title', 'link'],
     qty: 5
   };
 
-  // We don't want extra columns carrying unnecessary data through the network
-  function getQueryColumns(fields) {
-    if (Array.isArray(fields)) {
-      fields = fields.filter(function (field) {
-        return ['title', 'link', 'date', 'description'].indexOf(field) > -1;
-      });
+  var query = 'SELECT {COLS} FROM yql.query.multi WHERE queries=\'' +
+    'SELECT {COLS} FROM rss WHERE url in ("{URLS}")' +
+    '|UNIQUE(field="title",hideRepeatCount="true")' +
+    '|UNIQUE(field="link",hideRepeatCount="true")' +
+    '|SORT(field="pubDate",descending="true")' +
+    '|TRUNCATE({QTY})\'';
 
-      if (!fields.length) {
-        fields = defaultOptions.fields;
-      }
+  var nanofeed = {
+    options: defaultOptions,
+    fetch: fetch
+  };
+
+  window.nanofeed = window.nanofeed || nanofeed;
+
+  function objToQuerystring(obj) {
+    return encodeURIComponent(Object.keys(obj).map(function (key) {
+      return key + '=' + obj[key]
+    }).join('&'))
+  }
+
+  // We don't want extra columns carrying unnecessary data through the network
+  function queryColumnNames(fields) {
+    if (Array.isArray(fields) && fields.length) {
+      fields = ['title', 'link', 'date', 'description'].filter(function (field) {
+        return fields.indexOf(String(field).toLowerCase()) > -1;
+      });
     } else {
       fields = defaultOptions.fields;
     }
 
-    return fields
-      .map(function (field) {
-        if (field === 'date') {
-          return 'item.pubDate';
-        }
+    return fields.map(function (field) {
+      if (field === 'date') {
+        field = 'pubDate';
+      }
 
-        return 'item.' + field;
-      })
-      .join(',');
+      return 'item.' + field;
+    }).join(',');
   }
 
   function getJSON(url, callback) {
-    var request = new XMLHttpRequest(); // eslint-disable-line no-undef
+    var request = new XMLHttpRequest();
     request.onload = function () {
       var data;
       try {
@@ -47,6 +64,35 @@ var nanofeed = (function () { // eslint-disable-line no-unused-vars
     request.send();
   }
 
+  function onData(options, callback) {
+    return function (json) {
+      if (!json || !json.query || json.query.count === undefined) {
+        return;
+      }
+
+      if (!json.query.count) {
+        return callback([])
+      }
+
+      var data = [];
+
+      try {
+        var result = json.query.results.results.item;
+        data = result.length ? result : [result];
+      } catch (e) {
+        // ignore error
+      }
+
+      if (data.length && data[0].pubDate) {
+        data.forEach(function (item) {
+          item.pubDate = new Date(item.pubDate);
+        });
+      }
+
+      return callback(data);
+    }
+  }
+
   function fetch(urls, options, callback) {
     if (typeof urls === 'string') {
       urls = [urls];
@@ -57,58 +103,28 @@ var nanofeed = (function () { // eslint-disable-line no-unused-vars
     if (typeof options === 'function') {
       callback = options;
       options = defaultOptions;
+    } else {
+      options.qty = isNaN(options.qty) ? defaultOptions.qty : parseInt(options.qty);
     }
 
-    options.qty = isNaN(options.qty) ? defaultOptions.qty : parseInt(options.qty);
-
-    // Optimized cross-product make simple array of results in 'query.results.results.item'
-    // All tables Env allows select from 'query.multi'
-    var config = {
-      baseUrl: '//query.yahooapis.com/v1/public/yql?format=json&callback=&' +
-        'crossProduct=optimized&env=http://datatables.org/alltables.env',
-      template: 'SELECT {COLS} FROM query.multi WHERE queries=\'' +
-        'SELECT title,link,pubDate,description ' +
-        'FROM rss ' +
-        'WHERE url in ("{URLS}")' +
-        '|UNIQUE(field="title",hideRepeatCount="true")' +
-        '|UNIQUE(field="link",hideRepeatCount="true")' +
-        '|SORT(field="pubDate",descending="true")' +
-        '|TRUNCATE({QTY})\''
-    };
-
-    var query = config.template
-      .replace('{COLS}', getQueryColumns(options.fields))
+    query = query
       .replace('{URLS}', urls.join('","'))
+      .replace('{COLS}', queryColumnNames(options.fields))
       .replace('{QTY}', options.qty);
 
-    var url = config.baseUrl + '&q=' + encodeURIComponent(query);
+    // Optimized cross-product make simple array of results in 'query.results.results.item'
+    // All tables Env allows select from 'yql.query.multi'
+    var yqlQuerystring = objToQuerystring({
+      format: 'json',
+      callback: '',
+      crossProduct: 'optimized',
+      env: 'http://datatables.org/alltables.env',
+      q: query
+    })
 
-    getJSON(url, function (json) {
-      if (json && json.query && json.query.count >= 0) {
-        var data = [];
-        if (json.query.count) {
-          try {
-            var result = json.query.results.results.item;
-            data = result.length ? result : [result];
+    var url = 'https://query.yahooapis.com/v1/public/yql?' + yqlQuerystring;
 
-            if (options.fields.indexOf('date') > -1) {
-              data.forEach(function (item) {
-                item.pubDate = new Date(item.pubDate);
-              });
-            }
-          } catch (e) {
-            // ignore error
-          }
-        }
-        return callback(data);
-      }
-    });
-
-    return this;
+    getJSON(url, onData(options, callback));
   }
 
-  return {
-    options: defaultOptions,
-    fetch: fetch
-  };
-}());
+})(window);

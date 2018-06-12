@@ -11,5 +11,6 @@ ratings:
   paths:
   - src/*.js
 exclude_paths:
+- ./*.js
 - spec/*.js
 - dist/*.js

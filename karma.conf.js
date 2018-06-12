@@ -1,18 +1,30 @@
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     files: [
-      'nanofeed.js',
-      './spec/test/*.js',
+      './src/nanofeed.js',
+      './spec/helpers/*.js',
       './spec/*.js'
     ],
     frameworks: ['jasmine'],
     singleRun: true,
     browsers: ['PhantomJS'],
+    plugins: [
+      'karma-coverage',
+      'karma-jasmine',
+      'karma-chrome-launcher',
+      'karma-firefox-launcher',
+      'karma-phantomjs-launcher',
+      'karma-opera-launcher',
+      'karma-ie-launcher',
+      'karma-safari-launcher'
+    ],
     reporters: ['progress', 'coverage'],
-    preprocessors: { './nanofeed.js': ['coverage'] },
+    preprocessors: {
+      './src/nanofeed.js': ['coverage']
+    },
     coverageReporter: {
-      type : 'lcov',
-      dir : 'karma',
+      type: 'lcov',
+      dir: 'karma',
       subdir: 'report'
     }
   });

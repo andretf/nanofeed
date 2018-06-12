@@ -5,19 +5,21 @@ describe("Parameter", function () {
   var callFn;
 
   describe("Urls", function () {
-    beforeEach(function(){
+    beforeEach(function () {
       successCallback = jasmine.createSpy('successCallback');
       callFn = function (url, testResponse) {
         fakeXMLHTTPRequest.setResponse(testResponse || TestResponse.withResults.fields.default);
         nanofeed.fetch(url, successCallback);
         return {
           spy: successCallback,
-          callbackData: (successCallback.calls.mostRecent() || {args: []}).args[0]
+          callbackData: (successCallback.calls.mostRecent() || {
+            args: []
+          }).args[0]
         }
       }
     });
 
-    describe("When: data type is not string or string-array ", function() {
+    describe("When: data type is not string or string-array ", function () {
       it("should not try to retrieve feed for any data type except string or string-array", function () {
         expect(callFn(urls.invalid.null).spy).not.toHaveBeenCalled();
         expect(callFn(urls.invalid.undefined).spy).not.toHaveBeenCalled();
@@ -30,8 +32,8 @@ describe("Parameter", function () {
       });
     });
 
-    describe("When: data type is string or string-array ", function(){
-      function callFnNoResults (url) {
+    describe("When: data type is string or string-array ", function () {
+      function callFnNoResults(url) {
         return callFn(url, TestResponse.noResult);
       }
 
@@ -54,7 +56,7 @@ describe("Parameter", function () {
     });
   });
 
-  describe("(Given) Options ", function() {
+  describe("(Given) Options ", function () {
     beforeEach(function () {
       successCallback = jasmine.createSpy('successCallback');
       fakeXMLHTTPRequest.setResponse(TestResponse.withResults.fields.default);
@@ -92,8 +94,8 @@ describe("Parameter", function () {
     });
   });
 
-  describe("(Given) Callback", function(){
-    beforeEach(function(){
+  describe("(Given) Callback", function () {
+    beforeEach(function () {
       successCallback = jasmine.createSpy('successCallback');
       fakeXMLHTTPRequest.setResponse(TestResponse.withResults.fields.default);
       callFn = function (callback) {
@@ -101,24 +103,24 @@ describe("Parameter", function () {
       }
     });
 
-    it("(When) omitted (then) should throw exception", function(){
+    it("(When) omitted (then) should throw exception", function () {
       expect(nanofeed.fetch.bind(nanofeed, urls.valid.string)).toThrow();
     });
-    it("(When) undefined (then) should throw exception", function(){
+    it("(When) undefined (then) should throw exception", function () {
       expect(callFn(undefined)).toThrow();
     });
-    it("(When) null (then) should throw exception", function(){
+    it("(When) null (then) should throw exception", function () {
       expect(callFn(null)).toThrow();
     });
-    it("(When) other than a function (then) should throw exception", function(){
+    it("(When) other than a function (then) should throw exception", function () {
       expect(callFn(0)).toThrow();
       expect(callFn(new Date)).toThrow();
       expect(callFn("")).toThrow();
       expect(callFn({})).toThrow();
     });
 
-    it("(When) function (then) should not throw exception", function(){
-      expect(callFn(function(){})).not.toThrow();
+    it("(When) function (then) should not throw exception", function () {
+      expect(callFn(function () {})).not.toThrow();
     });
   });
 });
@@ -126,14 +128,13 @@ describe("Parameter", function () {
 describe("nanofeed.options", function () {
   var successCallback;
 
-  function getNanoResults(testResponse, customOptions){
+  function getNanoResults(testResponse, customOptions) {
     successCallback = jasmine.createSpy('successCallback');
     fakeXMLHTTPRequest.setResponse(testResponse);
 
     if (customOptions) {
       nanofeed.fetch(urls.valid.string, customOptions, successCallback);
-    }
-    else {
+    } else {
       nanofeed.fetch(urls.valid.string, successCallback);
     }
 
@@ -149,8 +150,9 @@ describe("nanofeed.options", function () {
   it("should be lower precedence than parameter options on nano.fetch", function () {
     nanofeed.options.qty = 3;
     var customQty = 1;
-    var data = getNanoResults(TestResponse.withResults.oneResult,
-                              { qty: customQty });
+    var data = getNanoResults(TestResponse.withResults.oneResult, {
+      qty: customQty
+    });
     expect(data.length).toBe(customQty);
   });
 });
@@ -158,7 +160,7 @@ describe("nanofeed.options", function () {
 describe("Successful result from call to Yahoo! API", function () {
   var successCallback;
 
-  function getNanoResults(testResponse){
+  function getNanoResults(testResponse) {
     successCallback = jasmine.createSpy('successCallback');
     fakeXMLHTTPRequest.setResponse(testResponse);
     nanofeed.fetch(urls.valid.string, successCallback);
@@ -184,7 +186,7 @@ describe("Successful result from call to Yahoo! API", function () {
   });
 
   describe("Format", function () {
-    describe("When: valid JSON", function() {
+    describe("When: valid JSON", function () {
       describe("should call callback function", function () {
         describe("when: data is valid (has property query.results.results) ", function () {
           it("When: there is no items, should pass empty array", function () {
@@ -213,8 +215,8 @@ describe("Successful result from call to Yahoo! API", function () {
       });
     });
 
-    describe("when: invalid JSON", function(){
-      it("should not throw exceptions", function(){
+    describe("when: invalid JSON", function () {
+      it("should not throw exceptions", function () {
         expect(getNanoResults.bind(this, TestResponse.empty)).not.toThrow();
         expect(getNanoResults.bind(this, TestResponse.html)).not.toThrow();
         expect(getNanoResults.bind(this, TestResponse.xml)).not.toThrow();
@@ -223,10 +225,12 @@ describe("Successful result from call to Yahoo! API", function () {
         expect(getNanoResults.bind(this, TestResponse.errorJson)).not.toThrow();
       });
 
-      it("should not call callback function", function(){
+      it("should not call callback function", function () {
         function callFn(testResponse) {
           getNanoResults(testResponse);
-          return {successCallback: successCallback};
+          return {
+            successCallback: successCallback
+          };
         }
         expect(callFn(TestResponse.empty).successCallback).not.toHaveBeenCalled();
         expect(callFn(TestResponse.html).successCallback).not.toHaveBeenCalled();
@@ -238,20 +242,20 @@ describe("Successful result from call to Yahoo! API", function () {
     });
   });
 
-  describe("Data type of fields", function() {
+  describe("Data type of fields", function () {
     var item;
     var options = {
       fields: ['title', 'link', 'date', 'description']
     };
 
-    beforeEach(function(){
+    beforeEach(function () {
       successCallback = jasmine.createSpy('successCallback');
       fakeXMLHTTPRequest.setResponse(TestResponse.withResults.fields.all);
       nanofeed.fetch(urls.valid.string, options, successCallback);
       expect(successCallback).toHaveBeenCalled();
       item = getCallbackParam(successCallback).first();
     });
-    afterEach(function(){
+    afterEach(function () {
       item = undefined;
     });
 
@@ -273,10 +277,10 @@ describe("Successful result from call to Yahoo! API", function () {
     });
   });
 
-  describe("Presence of field", function() {
+  describe("Presence of field", function () {
     var item;
 
-    function getFirstNanoResult(response, options){
+    function getFirstNanoResult(response, options) {
       successCallback = jasmine.createSpy('successCallback');
       fakeXMLHTTPRequest.setResponse(response);
       nanofeed.fetch(urls.valid.string, options, successCallback);
@@ -284,49 +288,65 @@ describe("Successful result from call to Yahoo! API", function () {
       return getCallbackParam(successCallback).first();
     }
 
-    beforeEach(function(){
+    beforeEach(function () {
       item = undefined;
     });
 
-    describe("present in options.fields", function() {
+    describe("present in options.fields", function () {
       it("should have 'title'", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.all, { fields: ['title'] });
+        item = getFirstNanoResult(TestResponse.withResults.fields.all, {
+          fields: ['title']
+        });
         expect(item.title).toBeDefined();
       });
       it("should have 'link'", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.all, { fields: ['link'] });
+        item = getFirstNanoResult(TestResponse.withResults.fields.all, {
+          fields: ['link']
+        });
         expect(item.link).toBeDefined();
       });
       it("should have 'pubDate'", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.all, { fields: ['pubDate'] });
+        item = getFirstNanoResult(TestResponse.withResults.fields.all, {
+          fields: ['pubDate']
+        });
         expect(item.pubDate).toBeDefined();
       });
       it("should have 'description'", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.all, { fields: ['description'] });
+        item = getFirstNanoResult(TestResponse.withResults.fields.all, {
+          fields: ['description']
+        });
         expect(item.description).toBeDefined();
       });
     });
 
-    describe("not present in options.fields", function() {
+    describe("not present in options.fields", function () {
       it("should not have 'title'", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.none, { fields: ['link'] });
+        item = getFirstNanoResult(TestResponse.withResults.fields.none, {
+          fields: ['link']
+        });
         expect(item.title).toBeUndefined();
       });
       it("should not have 'link'", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.none, { fields: ['date'] });
+        item = getFirstNanoResult(TestResponse.withResults.fields.none, {
+          fields: ['date']
+        });
         expect(item.link).toBeUndefined();
       });
       it("should not have 'pubDate'", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.none, { fields:['description'] });
+        item = getFirstNanoResult(TestResponse.withResults.fields.none, {
+          fields: ['description']
+        });
         expect(item.pubDate).toBeUndefined();
       });
       it("should not have 'description'", function () {
-        item = getFirstNanoResult(TestResponse.withResults.fields.none, { fields: ['title'] });
+        item = getFirstNanoResult(TestResponse.withResults.fields.none, {
+          fields: ['title']
+        });
         expect(item.description).toBeUndefined();
       });
     });
 
-    describe("Defaults", function() {
+    describe("Defaults", function () {
       it("should have 'title'", function () {
         item = getFirstNanoResult(TestResponse.withResults.fields.default, {});
         expect(item.title).toBeDefined();
@@ -344,7 +364,9 @@ describe("Successful result from call to Yahoo! API", function () {
         expect(item.description).toBeUndefined();
       });
       it("should have 'title' as default, when options.fields has not any valid field enumerated", function () {
-        var options = { fields: [] };
+        var options = {
+          fields: []
+        };
         item = getFirstNanoResult(TestResponse.withResults.fields.onlyTitle, options);
         expect(item.title).toBeDefined();
       });
@@ -355,18 +377,18 @@ describe("Successful result from call to Yahoo! API", function () {
 describe("Unsuccessful call to Yahoo! API", function () {
   var successCallback;
 
-  beforeEach(function(){
+  beforeEach(function () {
     successCallback = jasmine.createSpy('successCallback');
     fakeXMLHTTPRequest.setResponse(urls.valid.string).setError();
   });
 
-  it("should not throw exceptions", function(){
-    expect(function(){
+  it("should not throw exceptions", function () {
+    expect(function () {
       nanofeed.fetch(urls.valid.string, successCallback);
     }).not.toThrow();
   });
 
-  it("should not call callback function", function(){
+  it("should not call callback function", function () {
     nanofeed.fetch(urls.valid.string, successCallback);
     expect(successCallback).not.toHaveBeenCalled();
   });

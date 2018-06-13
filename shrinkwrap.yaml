@@ -1,10 +1,10 @@
 devDependencies:
-  codeclimate-test-reporter: 0.3.3
+  codeclimate-test-reporter: 0.5.0
   del: 3.0.0
   gulp: 3.9.1
   gulp-concat: 2.6.1
   gulp-jasmine-phantom: 3.0.0
-  gulp-rename: 1.2.3
+  gulp-rename: 1.3.0
   gulp-size: 2.1.0
   gulp-uglify: 1.5.4
   jasmine-core: 3.1.0
@@ -191,6 +191,14 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-B1qMD3RBP7O8o0H2KbrXDyB0IccejMF15+87Lvlor12ONPRHP6gTjXMNkt/d3ZuOGbAe66hFmaCfECI24Ufp6w==
+  /array-union/1.0.2:
+    dependencies:
+      array-uniq: 1.0.3
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-mjRBDk9OPaI96jdb5b5w8kd47Dk=
   /array-uniq/1.0.3:
     dev: true
     engines:
@@ -262,6 +270,7 @@ packages:
     dependencies:
       lodash: 4.17.10
     dev: true
+    optional: true
     resolution:
       integrity: sha512-fNEiL2+AZt6AlAw/29Cr0UDe4sRAHCpEHh54WMz+Bb7QfNcFw4h3loofyJpLeQs4Yx7yuqu/2dLgM5hKOs6HlQ==
   /asynckit/0.4.0:
@@ -365,6 +374,7 @@ packages:
     dependencies:
       readable-stream: 2.0.6
     dev: true
+    optional: true
     resolution:
       integrity: sha1-/cqHGplxOqANGeO7ukHER4emU5g=
   /blob/0.0.4:
@@ -585,10 +595,20 @@ packages:
     dev: true
     resolution:
       integrity: sha1-S0dXYP+AJkx2LDoXGQMukcf+oNE=
+  /clone-buffer/1.0.0:
+    dev: true
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha1-4+JbIHrE5wGvch4staFnksrD3Fg=
   /clone-stats/0.0.1:
     dev: true
     resolution:
       integrity: sha1-uI+UqCzzi4eR1YBG6kAprYjKmdE=
+  /clone-stats/1.0.0:
+    dev: true
+    resolution:
+      integrity: sha1-s3gt/4u1R04Yuba/D9/ngvh3doA=
   /clone/0.2.0:
     dev: true
     resolution:
@@ -599,6 +619,20 @@ packages:
       node: '>=0.8'
     resolution:
       integrity: sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
+  /clone/2.1.1:
+    dev: true
+    engines:
+      node: '>=0.8'
+    resolution:
+      integrity: sha1-0hfR6WERjjrJpLi7oyhVU79kfNs=
+  /cloneable-readable/1.1.2:
+    dependencies:
+      inherits: 2.0.3
+      process-nextick-args: 2.0.0
+      readable-stream: 2.3.6
+    dev: true
+    resolution:
+      integrity: sha512-Bq6+4t+lbM8vhTs/Bef5c5AdEMtapp/iFb6+s4/Hh9MVTt8OLKH7ZOOZSCT+Ys7hsHvqv0GuMPJ1lnQJVHvxpg==
   /co/4.6.0:
     dev: true
     engines:
@@ -606,16 +640,17 @@ packages:
       node: '>= 0.12.0'
     resolution:
       integrity: sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=
-  /codeclimate-test-reporter/0.3.3:
+  /codeclimate-test-reporter/0.5.0:
     dependencies:
       async: 1.5.2
+      commander: 2.9.0
       lcov-parse: 0.0.10
-      request: 2.72.0
+      request: 2.79.0
     dev: true
     engines:
-      node: '>=0.10.0'
+      node: '>= 4'
     resolution:
-      integrity: sha1-JtI/Q6N9c4AqZqTnbTpTP3h9fqU=
+      integrity: sha1-k/oGscGOQRc0kSjcTjiq0IBDgo4=
   /collection-visit/1.0.0:
     dependencies:
       map-visit: 1.0.0
@@ -653,6 +688,14 @@ packages:
     dev: true
     resolution:
       integrity: sha512-VlfT9F3V0v+jr4yxPc5gg9s62/fIVWsd2Bk2iD435um1NlGMYdVCq+MjcXnhYq2icNOizHr1kK+5TI6H0Hy0ag==
+  /commander/2.9.0:
+    dependencies:
+      graceful-readlink: 1.0.1
+    dev: true
+    engines:
+      node: '>= 0.6.x'
+    resolution:
+      integrity: sha1-nJkJQXbhIkDLItbFFGCYQA/g99Q=
   /component-bind/1.0.0:
     dev: true
     resolution:
@@ -1365,16 +1408,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-+8cfDEGt6zf5bFd60e1C2P2sypE=
-  /form-data/1.0.1:
-    dependencies:
-      async: 2.6.1
-      combined-stream: 1.0.6
-      mime-types: 2.1.18
-    dev: true
-    engines:
-      node: '>= 0.10'
-    resolution:
-      integrity: sha1-rjFduaSQf6BlUCMEpm13M0de43w=
   /form-data/2.0.0:
     dependencies:
       asynckit: 0.4.0
@@ -1386,6 +1419,16 @@ packages:
     optional: true
     resolution:
       integrity: sha1-bwrrrcxdoWwT4ezBETfYX5uIOyU=
+  /form-data/2.1.4:
+    dependencies:
+      asynckit: 0.4.0
+      combined-stream: 1.0.6
+      mime-types: 2.1.18
+    dev: true
+    engines:
+      node: '>= 0.12'
+    resolution:
+      integrity: sha1-M8GDrPGTJ27KqYFDpp6Uv+4XUNE=
   /form-data/2.3.2:
     dependencies:
       asynckit: 0.4.0
@@ -1605,6 +1648,18 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-2/dDxsFJklk8ZVVoy2btMsASLr4=
+  /globby/6.1.0:
+    dependencies:
+      array-union: 1.0.2
+      glob: 7.1.2
+      object-assign: 4.1.1
+      pify: 2.3.0
+      pinkie-promise: 2.0.1
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-9abXDoOV4hyFj7BInWTfAkJNUGw=
   /globule/0.1.0:
     dependencies:
       glob: 3.1.21
@@ -1645,6 +1700,20 @@ packages:
       node: '>=0.4.0'
     resolution:
       integrity: sha1-Dovf5NHduIVNZOBOp8AOKgJuVlg=
+  /graceful-readlink/1.0.1:
+    dev: true
+    resolution:
+      integrity: sha1-TK+tdrxi8C+gObL5Tpo906ORpyU=
+  /gulp-concat/2.6.1:
+    dependencies:
+      concat-with-sourcemaps: 1.1.0
+      through2: 2.0.3
+      vinyl: 2.1.0
+    dev: true
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha1-Yz0WyV2IUEYorQJmVmPO5aR5M1M=
   /gulp-jasmine-phantom/3.0.0:
     dependencies:
       glob: 4.5.3
@@ -1658,12 +1727,12 @@ packages:
       node: '>=0.12.0'
     resolution:
       integrity: sha1-jgsrsi5x1AVqIumoGyFmGRhiU5Y=
-  /gulp-rename/1.2.3:
+  /gulp-rename/1.3.0:
     dev: true
     engines:
       node: '>=4'
     resolution:
-      integrity: sha512-CmdPM0BjJ105QCX1fk+j7NGhiN/1rCl9HLGss+KllBS/tdYadpjTxqdKyh/5fNV+M3yjT1MFz5z93bXdrTyzAw==
+      integrity: sha512-nEuZB7/9i0IZ8AXORTizl2QLP9tcC9uWc/s329zElBLJw1CfOhmMXBxwVlCRKjDyrWuhVP0uBKl61KeQ32TiCg==
   /gulp-size/2.1.0:
     dependencies:
       chalk: 1.1.3
@@ -2264,6 +2333,28 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-OTiixgpZAT1M4NHgS5IguFp/Vz2VI3U7Goh4/HA1adtwyLtSBrxYlcSYkhpAE07s4fKEcjrFxyvtQBND4vFQyQ==
+  /is-path-cwd/1.0.0:
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-0iXsIxMuie3Tj9p2dHLmLmXxEG0=
+  /is-path-in-cwd/1.0.1:
+    dependencies:
+      is-path-inside: 1.0.1
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha512-FjV1RTW48E7CWM7eE/J2NJvAEEVektecDBVBE5Hh3nM1Jd0kvhHtX68Pr3xsDf857xt3Y4AkwVULK1Vku62aaQ==
+  /is-path-inside/1.0.1:
+    dependencies:
+      path-is-inside: 1.0.2
+    dev: true
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha1-jvW33lBDej/cprToZe96pVy0gDY=
   /is-plain-object/2.0.4:
     dependencies:
       isobject: 3.0.1
@@ -3042,6 +3133,7 @@ packages:
   /node-uuid/1.4.8:
     deprecated: Use uuid module instead
     dev: true
+    optional: true
     resolution:
       integrity: sha1-sEDrCSOWivq/jTL7HxfxFn/auQc=
   /nodemailer-direct-transport/3.3.2:
@@ -3283,6 +3375,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-u+Z0BseaqFxc/sdm/lc0VV36EnQ=
+  /p-map/1.2.0:
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha512-r6zKACMNhjPJMTl8KcFH4li//gkrXWfbD6feV8l6doRHlzljFWGJ2AP6iKaCJXyZmAUMOPtvbW7EXkbWO/pLEA==
   /pac-proxy-agent/2.0.2:
     dependencies:
       agent-base: 4.2.0
@@ -3381,6 +3479,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-F0uSaHNVNP+8es5r9TpanhtcX18=
+  /path-is-inside/1.0.2:
+    dev: true
+    resolution:
+      integrity: sha1-NlQX3t5EQw0cEa9hAn+s8HS9/FM=
   /path-parse/1.0.5:
     dev: true
     resolution:
@@ -3445,6 +3547,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-7RQaasBDqEnqWISY59yosVMw6Qw=
+  /pify/3.0.0:
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-5aSs0sEB/fPZpNB/DbxNtJ3SgXY=
   /pinkie-promise/2.0.1:
     dependencies:
       pinkie: 2.0.4
@@ -3493,6 +3601,7 @@ packages:
       integrity: sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
   /process-nextick-args/1.0.7:
     dev: true
+    optional: true
     resolution:
       integrity: sha1-FQ4gt1ZZCtP5EJPyWk8q2L/zC6M=
   /process-nextick-args/2.0.0:
@@ -3550,12 +3659,6 @@ packages:
       node: '>=0.9'
     resolution:
       integrity: sha512-8YOJEHtxpySA3fFDyCRxA+UUV+fA+rTWnuWvylOK/NCjhY+b4ocCtmu8TtsWb+mYeU+GCHf/S66KZF/AsteKHg==
-  /qs/6.1.2:
-    dev: true
-    engines:
-      node: '>=0.6'
-    resolution:
-      integrity: sha1-tZ2JJdDJme9tY6z0rFq7CtqiS1Q=
   /qs/6.2.3:
     dev: true
     engines:
@@ -3563,6 +3666,12 @@ packages:
     optional: true
     resolution:
       integrity: sha1-HPyyXBCpsrSDBT/zn138kjOQjP4=
+  /qs/6.3.2:
+    dev: true
+    engines:
+      node: '>=0.6'
+    resolution:
+      integrity: sha1-51vV9uJoEioqDgvaYwslUMFmUCw=
   /qs/6.5.2:
     dev: true
     engines:
@@ -3642,6 +3751,7 @@ packages:
       string_decoder: 0.10.31
       util-deprecate: 1.0.2
     dev: true
+    optional: true
     resolution:
       integrity: sha1-j5A0HmilPMySh4jaz80Rs265t44=
   /readable-stream/2.3.6:
@@ -3760,40 +3870,18 @@ packages:
       node: '>= 0.4'
     resolution:
       integrity: sha1-KbvZIHinOfC8zitO5B6DeVNSKSQ=
+  /replace-ext/1.0.0:
+    dev: true
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha1-3mMSg3P8v3w8z6TeWkgMRaZ5WOs=
   /request-progress/2.0.1:
     dependencies:
       throttleit: 1.0.0
     dev: true
     resolution:
       integrity: sha1-XTa7V5YcZzqlt4jbyBQf3yO0Tgg=
-  /request/2.72.0:
-    dependencies:
-      aws-sign2: 0.6.0
-      aws4: 1.7.0
-      bl: 1.1.2
-      caseless: 0.11.0
-      combined-stream: 1.0.6
-      extend: 3.0.1
-      forever-agent: 0.6.1
-      form-data: 1.0.1
-      har-validator: 2.0.6
-      hawk: 3.1.3
-      http-signature: 1.1.1
-      is-typedarray: 1.0.0
-      isstream: 0.1.2
-      json-stringify-safe: 5.0.1
-      mime-types: 2.1.18
-      node-uuid: 1.4.8
-      oauth-sign: 0.8.2
-      qs: 6.1.2
-      stringstream: 0.0.6
-      tough-cookie: 2.2.2
-      tunnel-agent: 0.4.3
-    dev: true
-    engines:
-      node: '>=0.8.0'
-    resolution:
-      integrity: sha1-DOOheVEmILEEQfFMguIcEsDdtOE=
   /request/2.75.0:
     dependencies:
       aws-sign2: 0.6.0
@@ -3823,6 +3911,33 @@ packages:
     optional: true
     resolution:
       integrity: sha1-0rgmiihtoT6qXQGt9dGMyQ9lfZM=
+  /request/2.79.0:
+    dependencies:
+      aws-sign2: 0.6.0
+      aws4: 1.7.0
+      caseless: 0.11.0
+      combined-stream: 1.0.6
+      extend: 3.0.1
+      forever-agent: 0.6.1
+      form-data: 2.1.4
+      har-validator: 2.0.6
+      hawk: 3.1.3
+      http-signature: 1.1.1
+      is-typedarray: 1.0.0
+      isstream: 0.1.2
+      json-stringify-safe: 5.0.1
+      mime-types: 2.1.18
+      oauth-sign: 0.8.2
+      qs: 6.3.2
+      stringstream: 0.0.6
+      tough-cookie: 2.3.4
+      tunnel-agent: 0.4.3
+      uuid: 3.2.1
+    dev: true
+    engines:
+      node: '>= 4'
+    resolution:
+      integrity: sha1-Tf5b9r6LjNw3/Pk+BLZVd3InEN4=
   /request/2.87.0:
     dependencies:
       aws-sign2: 0.7.0
@@ -4408,13 +4523,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-FWtleNAtZ/Ki2qtqej2CXTOayOH9bHDQF+Q48VpWyDXjbYxA4Yz8iDB31zXOBUlOHHKidDbqGVrTUvQMPmBGBw==
-  /tough-cookie/2.2.2:
-    deprecated: 'ReDoS vulnerability parsing Set-Cookie https://nodesecurity.io/advisories/130'
-    dev: true
-    engines:
-      node: '>=0.10.0'
-    resolution:
-      integrity: sha1-yDoYMPTl7wuT7yo0iOck+N4Basc=
   /tough-cookie/2.3.4:
     dependencies:
       punycode: 1.4.1
@@ -4672,6 +4780,19 @@ packages:
       node: '>= 0.9'
     resolution:
       integrity: sha1-sEVbOPxeDPMNQyUTLkYZcMIJHN4=
+  /vinyl/2.1.0:
+    dependencies:
+      clone: 2.1.1
+      clone-buffer: 1.0.0
+      clone-stats: 1.0.0
+      cloneable-readable: 1.1.2
+      remove-trailing-separator: 1.1.0
+      replace-ext: 1.0.0
+    dev: true
+    engines:
+      node: '>= 0.10'
+    resolution:
+      integrity: sha1-Ah+cLPlR1rk5lDyJ617lrdT9kkw=
   /void-elements/2.0.1:
     dev: true
     engines:
@@ -4786,12 +4907,14 @@ registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 7
 shrinkwrapVersion: 3
 specifiers:
-  codeclimate-test-reporter: ^0.3.1
+  codeclimate-test-reporter: ^0.5.0
+  del: ^3.0.0
   gulp: ^3.9.1
+  gulp-concat: ^2.6.1
   gulp-jasmine-phantom: ^3.0.0
-  gulp-rename: ^1.2.2
-  gulp-size: ^2.0.0
-  gulp-uglify: ^1.5.2
+  gulp-rename: ^1.3.0
+  gulp-size: ^2.1.0
+  gulp-uglify: ^1.5.4
   jasmine-core: ^3.1.0
   karma: ^2.0.2
   karma-chrome-launcher: ^2.2.0
@@ -4802,4 +4925,4 @@ specifiers:
   karma-opera-launcher: ^1.0.0
   karma-phantomjs-launcher: ^1.0.4
   karma-safari-launcher: ^1.0.0
-  phantomjs-prebuilt: ^2.1.5
+  phantomjs-prebuilt: ^2.1.16

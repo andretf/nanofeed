@@ -1,6 +1,8 @@
 devDependencies:
   codeclimate-test-reporter: 0.3.3
+  del: 3.0.0
   gulp: 3.9.1
+  gulp-concat: 2.6.1
   gulp-jasmine-phantom: 3.0.0
   gulp-rename: 1.2.3
   gulp-size: 2.1.0
@@ -678,6 +680,12 @@ packages:
       '0': node >= 0.8
     resolution:
       integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==
+  /concat-with-sourcemaps/1.1.0:
+    dependencies:
+      source-map: 0.6.1
+    dev: true
+    resolution:
+      integrity: sha512-4gEjHJFT9e+2W/77h/DS5SGUgwDaOwprX8L/gl5+3ixnzkVJJsZWDSelmN3Oilw3LNDZjZV0yqH1hLG3k6nghg==
   /connect/3.6.6:
     dependencies:
       debug: 2.6.9
@@ -837,6 +845,19 @@ packages:
     optional: true
     resolution:
       integrity: sha1-/PSQo37OJmRk2cxDGrmMWBnO0JU=
+  /del/3.0.0:
+    dependencies:
+      globby: 6.1.0
+      is-path-cwd: 1.0.0
+      is-path-in-cwd: 1.0.1
+      p-map: 1.2.0
+      pify: 3.0.0
+      rimraf: 2.6.2
+    dev: true
+    engines:
+      node: '>=4'
+    resolution:
+      integrity: sha1-U+z2mf/LyzljdpGrE7rxYIGXZuU=
   /delayed-stream/1.0.0:
     dev: true
     engines:

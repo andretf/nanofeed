@@ -10,8 +10,13 @@
   "main": "./dist/nanofeed.js",
   "license": "MIT",
   "scripts": {
-    "test:dev": "npm test -- --no-single-run"
+    "clean": "rm -rf ./dist && mkdir dist",
+    "prebuild": "npm run clean",
+    "build": "npm run concat && npm run uglify",
+    "concat": "cat src/* > dist/nanofeed.js",
+    "uglify": "uglifyjs dist/nanofeed.js -o dist/nanofeed.min.js --config-file uglify.json",
     "test": "karma start",
+    "tdd": "npm test -- --no-single-run"
   },
   "devDependencies": {
     "codeclimate-test-reporter": "^0.5.0",

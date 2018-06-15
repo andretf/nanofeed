@@ -1,5 +1,5 @@
 /*!
- * nanofeed 1.1.1
+ * nanofeed 1.1.2
  * (c) 2016-2018 Andre Figueiredo https://github.com/andretf
  * License: MIT
 */

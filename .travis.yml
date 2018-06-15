@@ -5,4 +5,4 @@ before_script:
   - npm install
 after_script:
   - codeclimate-test-reporter < karma/report/lcov.info
-script: npm test
+script: npm build && npm test

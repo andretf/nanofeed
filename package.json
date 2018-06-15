@@ -1,6 +1,6 @@
 {
   "name": "nanofeed",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "Tiny RSS feed parser built in JavaScript.",
   "repository": {
     "type": "git",
@@ -10,17 +10,21 @@
   "main": "./dist/nanofeed.js",
   "license": "MIT",
   "scripts": {
-    "build": "gulp build",
+    "v": "node support/version.js",
+    "git-add-v-files": "git add -A dist && git add LICENSE README.md src/header package.json",
+    "preversion": "npm test",
+    "version": "npm run v && npm run build && npm run git-add-v-files",
+    "postversion": "git push && git push --tags",
+    "clean": "rm -rf ./dist && mkdir dist",
+    "prebuild": "npm run clean",
+    "build": "npm run concat && npm run uglify",
+    "concat": "cat src/* > dist/nanofeed.js",
+    "uglify": "uglifyjs dist/nanofeed.js -o dist/nanofeed.min.js --config-file uglify.json",
     "test": "karma start",
-    "test:dev": "npm test -- --no-single-run"
+    "tdd": "npm test -- --no-single-run"
   },
   "devDependencies": {
-    "codeclimate-test-reporter": "^0.3.1",
-    "gulp": "^3.9.1",
-    "gulp-jasmine-phantom": "^3.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-size": "^2.0.0",
-    "gulp-uglify": "^1.5.2",
+    "codeclimate-test-reporter": "^0.5.0",
     "jasmine-core": "^3.1.0",
     "karma": "^2.0.2",
     "karma-chrome-launcher": "^2.2.0",
@@ -31,6 +35,6 @@
     "karma-opera-launcher": "^1.0.0",
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-safari-launcher": "^1.0.0",
-    "phantomjs-prebuilt": "^2.1.5"
+    "phantomjs-prebuilt": "^2.1.16"
   }
 }

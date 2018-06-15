@@ -1,0 +1,12 @@
+{
+  "compress": {
+    "hoist_vars": true,
+    "warnings": true
+  },
+  "mangle": {
+    "toplevel": true
+  },
+  "output": {
+    "preamble": "/* nanofeed 1.1.1 | MIT License | (c) 2016-2018 https://github.com/andretf/nanofeed */"
+  }
+}

@@ -42,11 +42,7 @@ async function update(file, transformation) {
 
 function currentVersion() {
   if (process.argv[2]) return process.argv[2]
-
-  let version = require(dir + '/package.json').version.split('.')
-  const last = parseInt(version.pop()) + 1
-  version.push(last)
-  return version.join('.')
+  return require(dir + '/package.json').version
 }
 
 function updateYear(data) {
@@ -54,5 +50,5 @@ function updateYear(data) {
 }
 
 function updateVersion(data) {
-  return data.replace(/\d+\.\d+\.\d+/, version)
+  return data.replace(/\d+\.\d+(\.\d+)?/, version)
 }

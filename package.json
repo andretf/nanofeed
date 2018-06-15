@@ -10,6 +10,11 @@
   "main": "./dist/nanofeed.js",
   "license": "MIT",
   "scripts": {
+    "v": "node support/version.js",
+    "git-add-v-files": "git add -A dist && git add LICENSE README.md src/header package.json",
+    "preversion": "npm test",
+    "version": "npm run v && npm run build && npm run git-add-v-files",
+    "postversion": "git push && git push --tags",
     "clean": "rm -rf ./dist && mkdir dist",
     "prebuild": "npm run clean",
     "build": "npm run concat && npm run uglify",

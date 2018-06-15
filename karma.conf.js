@@ -1,7 +1,7 @@
 module.exports = function (config) {
   config.set({
     files: [
-      './src/nanofeed.js',
+      './dist/nanofeed.min.js',
       './spec/helpers/*.js',
       './spec/*.js'
     ],

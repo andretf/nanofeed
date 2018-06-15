@@ -7,10 +7,10 @@ const year = new Date().getFullYear()
 
 console.info(`The new version is ${version} and the year is ${year}.`)
 
-update('package.json', data => {
-  data.version = version
-  return data
-})
+// update('package.json', data => {
+//   data.version = version
+//   return data
+// })
 
 update('uglify.json', data => {
   data.output.preamble = `/* nanofeed ${version} | MIT License | (c) 2016-${year} https://github.com/andretf/nanofeed */`

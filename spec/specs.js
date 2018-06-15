@@ -157,6 +157,12 @@ describe("nanofeed.options", function () {
   });
 });
 
+describe("Chain calls", function () {
+  it("should allow chain calls", function () {
+    expect(nanofeed.fetch().fetch).toEqual(jasmine.any(Function))
+  })
+})
+
 describe("Successful result from call to Yahoo! API", function () {
   var successCallback;
 

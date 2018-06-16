@@ -1,0 +1,8 @@
+title: nanofeed
+description: Tiny RSS feed parser built in JavaScript
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions

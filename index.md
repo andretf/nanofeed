@@ -2,125 +2,116 @@
 [![Code Climate](https://codeclimate.com/github/andretf/nanofeed/badges/gpa.svg)](https://codeclimate.com/github/andretf/nanofeed)
 [![Build Status](https://travis-ci.org/andretf/nanofeed.svg?branch=master)](https://travis-ci.org/andretf/nanofeed)
 [![Test Coverage](https://codeclimate.com/github/andretf/nanofeed/badges/coverage.svg)](https://codeclimate.com/github/andretf/nanofeed/coverage)
-# nanofeed
-#### Tiny RSS feed parser built in JavaScript.
 
-No dependencies.<br>
+# nanofeed
+
+#### Tiny RSS feed parser client built in JavaScript.
+
+No library dependencies.<br>
 Asynchronous requests.<br>
 Multiple feeds sources.<br>
-Multiple independent successive calls.
+Multiple independent successive calls.<br>
+Uses [Yahoo! YQL Plataform](https://developer.yahoo.com/yql).<br>
+Widely supported by browsers.
 
-##Installation
+## Installation
 
-    bower install nanofeed
-    npm install nanofeed
+Recommended using CDN:
 
-##Examples
+```HTML
+<script src="https://www.jsdelivr.com/package/npm/nanofeed@1/dist/nanofeed.min.js"></script>
+```
+
+or package manager:
+
+    $ yarn add nanofeed
+    $ pnpm i -D nanofeed
+
+## Examples
+
 ```javascript
 // minimal
 nanofeed.fetch(url, function(items) {
-  console.log(items);
-});
+  console.log(items)
+})
 
 // Multiple feed sources
 nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
 
 // Successive calls
-nanofeed.fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
-        .fetch(weatherFeedUrl, addWeatherFeedItems);
+nanofeed
+  .fetch([socialFeedUrl, newsFeedUrl], addFeedItems)
+  .fetch(weatherFeedUrl, addWeatherFeedItems)
 
 // Callback function receive array of items retrieved from the feed
-function callback(items){
-  items.forEach(function(x){
-    var newItemHtml = '<li>' + items.title + ' - ' + item.date + '</li>';
-    document.getElementById('feed').innerHTML += newItemHtml;
-  });
+function callback(items) {
+  items.forEach(function(x) {
+    var newItemHtml = '<li>' + items.title + ' - ' + item.date + '</li>'
+    document.getElementById('feed').innerHTML += newItemHtml
+  })
 }
 
 // Setting options for a function call
-nanofeed.fetch(url, {
+nanofeed.fetch(
+  url,
+  {
     fields: ['title', 'date'],
     qty: 15
   },
   callback
-);
+)
 
 // or globally for all function calls
 nanofeed.options = {
-    fields: ['title', 'date'],
-    qty: 15
-};
-nanofeed.fetch(url, callback);
-nanofeed.fetch(weatherFeedUrl, addWeatherFeedItems);
+  fields: ['title', 'date'],
+  qty: 15
+}
+nanofeed.fetch(url, callback)
+nanofeed.fetch(weatherFeedUrl, addWeatherFeedItems)
 ```
 
-##Documentation
-####`nanofeed.fetch(feed_url, [options,] success_callback);`
+## Documentation
 
-- ####feed_url<br>
-Absolute URL(s) of the RSS feed(s).<br>
-*required*<br>
-**`string`** | **`string array`**
+#### `nanofeed.fetch(feed_url, [options,] success_callback)`
 
-- ####options<br>
-Options about format of result returned from feed sources.<br>
-*optional*<br>
-**`object`**<br>
+| parameter        | type                   | required | description                                                |
+| ---------------- | ---------------------- | -------- | ---------------------------------------------------------- |
+| feed_url         | string \| string array | yes      | Absolute URL(s) of the RSS feed(s).                        |
+| options          | object                 | no       | Options about format of result returned from feed sources. |
+| success_callback | function(data)         | yes      | Callback function called on success.                       |
 
-  - **fields**<br>
-  Fields to be returned from feed source(s).<br>
-  *optional* <br>
-  **`string array`**<br>
-  default: `['title', 'link']`<br>
-  accepted values: `title` | `link` | `date` | `description`.
+#### Options parameters
 
-  - **qty**<br>
-  Quantity of feed entries to return.<br>
-  *optional*<br>
-  **`integer`**<br>
-  default: `5`<br>
-  accepted values: `>0` *<br>
-  <sup>*</sup><sup>(maximum limited by feed source or Feed API)</sup>
+| attribute | type         | default           | accepts                                                          | description                                |
+| --------- | ------------ | ----------------- | ---------------------------------------------------------------- | ------------------------------------------ |
+| fields    | string array | ['title', 'link'] | title, link, date, description                                   | Fields to be returned from feed source(s). |
+| qty       | integer      | 5                 | positive integers <br>(limited by feed source or Yahoo Feed API) | Quantity of feed entries to return.        |
 
-- ####success_callback<br>
-Callback function called on success.<br>
-*required*<br>
-**`function(data)`**
+#### Callback function called on success:<br>
 
-  - **data**<br>
-  List of feed entries ordered by most recent publish date.<br>
-  **`array of object:`**<br>
-    - title: `string`
-    - link: `string`
-    - pubDate: `date`
-    - description: `string`
+Returns as parameter the list of feed entries ordered by most recent publish date.
+Array of object:
+
+| attribute   | type   |
+| ----------- | ------ |
+| title       | string |
+| link        | string |
+| pubDate     | date   |
+| description | string |
 
 For further documentation see specifications.
 
-##Specification & Tests
+## Specification & Tests
 
-The specification of this library is written in BDD ubiquitous language.
-It is used to run tests with [Jasmine](https://github.com/jasmine/jasmine) JavaScript test framework.
+- in project:
+  - [spec/specs.js](https://github.com/andretf/nanofeed/blob/master/spec/specs.js) (source code)
+  - [spec/specRunner.html](https://github.com/andretf/nanofeed/blob/master/spec/specRunner.html) (HTML UI)
+- online:
+  - https://andretf.github.io/nanofeed/spec
+  - https://andretf.github.io/nanofeed/spec/specs.js
 
-Here is the location of the specification and results of its test on library:
-- project source code at:
-    - [nanofeed/spec/specs.js](https://github.com/andretf/nanofeed/blob/master/spec/specs.js)
-    - [nanofeed/spec/specRunner.html](https://github.com/andretf/nanofeed/blob/master/spec/specRunner.html)
-- online at:
-    - https://andretf.github.io/nanofeed/spec
-    - https://andretf.github.io/nanofeed/spec/specs.js
+Detailed code coverage is available at https://andretf.github.io/nanofeed/spec/coverage.
 
-To see the coverage of these tests see https://andretf.github.io/nanofeed/spec/coverage. They are runned with [karma](https://github.com/karma-runner/karma) + [karma-coverage](https://github.com/karma-runner/karma-coverage).
+## Authoring
 
-##Support
-
-Desktop | Mobile
---------|---------
-Chrome  | Chrome for Android
-Firefox | Firefox Mobile
-IE10+ support | IE Mobile
-Safari  | Safari Mobile
-Opera   | Android
-
-##Authoring
-- Andre Figueiredo <andretf.inf@gmail.com>
+- Andre Figueiredo \<andretf.inf@gmail.com\>

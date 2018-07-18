@@ -7,25 +7,27 @@ module.exports = function (config) {
     ],
     frameworks: ['jasmine'],
     singleRun: true,
-    browsers: ['PhantomJS'],
+    browsers: ['jsdom'],
     plugins: [
       'karma-coverage',
       'karma-jasmine',
-      'karma-chrome-launcher',
-      'karma-firefox-launcher',
-      'karma-phantomjs-launcher',
-      'karma-opera-launcher',
-      'karma-ie-launcher',
-      'karma-safari-launcher'
+      'karma-jsdom-launcher',
+      'karma-mocha-reporter'
     ],
-    reporters: ['progress', 'coverage'],
+    reporters: ['coverage', 'progress'],
     preprocessors: {
       './src/nanofeed.js': ['coverage']
     },
     coverageReporter: {
-      type: 'lcov',
-      dir: 'karma',
-      subdir: 'report'
+      reporters: [{
+        type: 'lcovonly'
+      }, {
+        type: 'text-summary'
+      }, {
+        type: 'html'
+      }],
+      dir: './coverage',
+      subdir: './'
     }
-  });
-};
+  })
+}

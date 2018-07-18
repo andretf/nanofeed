@@ -7,6 +7,6 @@
     "toplevel": true
   },
   "output": {
-    "preamble": "/* nanofeed 1.1.3 | MIT License | (c) 2016-2018 https://github.com/andretf/nanofeed */"
+    "preamble": "/* nanofeed 1.1.4 | MIT License | (c) 2016-2018 https://github.com/andretf/nanofeed */"
   }
 }

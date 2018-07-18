@@ -1,5 +1,5 @@
 /*!
- * nanofeed 1.1.3
+ * nanofeed 1.1.4
  * (c) 2016-2018 Andre Figueiredo https://github.com/andretf
  * License: MIT
 */
@@ -23,13 +23,11 @@
   window.nanofeed = window.nanofeed || nanofeed
 
   function objToQuerystring(obj) {
-    return encodeURIComponent(
-      Object.keys(obj)
+    return Object.keys(obj)
       .map(function (key) {
-        return key + '=' + obj[key]
+        return key + '=' + encodeURIComponent(obj[key])
       })
       .join('&')
-    )
   }
 
   // We don't want extra columns carrying unnecessary data through the network
@@ -110,17 +108,16 @@
   }
 
   function apiQuery(urls, options) {
-    return (
-      "SELECT {COLS} FROM yql.query.multi WHERE queries='" +
-      'SELECT {COLS} FROM rss WHERE url in ("{URLS}")' +
+    return ("SELECT {COLS} FROM yql.query.multi WHERE queries='" +
+        'SELECT title, link, pubDate, description ' +
+        'FROM rss WHERE url in ("{URLS}")' +
       '|UNIQUE(field="title",hideRepeatCount="true")' +
       '|UNIQUE(field="link",hideRepeatCount="true")' +
       '|SORT(field="pubDate",descending="true")' +
-      "|TRUNCATE({QTY})'"
+        "|TRUNCATE({QTY})'")
       .replace('{URLS}', urls.join('","'))
       .replace('{COLS}', queryColumnNames(options.fields))
       .replace('{QTY}', options.qty)
-    )
   }
 
   function apiUrl(query) {

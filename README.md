@@ -14,6 +14,10 @@ Multiple independent successive calls.<br>
 Uses [Yahoo! YQL Plataform](https://developer.yahoo.com/yql).<br>
 Widely supported by browsers.
 
+## WARNING
+
+nanofeed is a frontend library who relies on Yahoo Query API to fetch RSS content. It's currently not working since Yahoo shutted down the service. Need some reworking for use other services and allowing user to change it.
+
 ## Installation
 
 Recommended using CDN:

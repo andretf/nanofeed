@@ -1,3 +1,10 @@
+> :warning: **WARNING:** This package does not work and shouldn't be used anymore, since Yahoo! shut down YQL. Please, consider using [rss-parser](https://github.com/rbren/rss-parser).
+
+
+
+
+
+
 [![GitHub version](https://badge.fury.io/gh/andretf%2Fnanofeed.svg)](https://badge.fury.io/gh/andretf%2Fnanofeed)
 [![Code Climate](https://codeclimate.com/github/andretf/nanofeed/badges/gpa.svg)](https://codeclimate.com/github/andretf/nanofeed)
 [![Build Status](https://travis-ci.org/andretf/nanofeed.svg?branch=master)](https://travis-ci.org/andretf/nanofeed)
